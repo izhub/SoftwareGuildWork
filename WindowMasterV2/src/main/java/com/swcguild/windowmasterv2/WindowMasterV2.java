@@ -14,18 +14,45 @@ import java.util.Scanner;
 public class WindowMasterV2 {
     public static void main (String[] args){
         
-        double height, width, costOfWindow, costOfTrim, unitCostWindow, 
-                unitCostTrim, areaOfWindow, perimeterOfTrim, totalCost;
+        double height=0;
+        double width = 0;
+        double costOfWindow = 0; 
+        double costOfTrim = 0; 
+        double unitCostWindow = 0;                 
+        double unitCostTrim = 0;
+        double areaOfWindow = 0;
+        double perimeterOfTrim = 0;
+        double totalCost = 0;
+        
+        final double MAXHEIGHT = 25.5;
+        final double MAXWIDTH = 18.75;
+        final double MIN = 1.0;
         
         String strWindow, strTrim,strUnitWindow, strUnitTrim;
         
         Scanner sc = new Scanner (System.in);
         
-        System.out.println("Enter window height: ");
+        do { System.out.println("Enter window height (25.5 - 1.0): ");
         height = Double.parseDouble(sc.nextLine());
+        } while (height > MAXHEIGHT || height < MIN);
         
-        System.out.println("Enter width: ");
+        /*(if (height > MAXHEIGHT) {
+            System.out.println("Too big");
+        } else if (height < MIN) {
+            System.out.println("Too small");
+        } else ;)
+        */
+        
+        do { System.out.println("Enter width: ");
         width = Double.parseDouble(sc.nextLine());
+        } while (width > MAXWIDTH || width < MIN);
+        /*
+        if (width > MAXWIDTH) {
+            System.out.println("Too big");
+        } else if (width < MIN) {
+            System.out.println("Too small");
+        } else ; 
+        */
         
         System.out.println("Enter unit cost of Window: ");
         unitCostWindow = Double.parseDouble(sc.nextLine());
@@ -44,7 +71,5 @@ public class WindowMasterV2 {
         System.out.println("Cost of Window is: " + costOfWindow);
         System.out.println("Cost of Trim is: " + costOfTrim);
         System.out.println("Total cost is: " + totalCost);
-    }}
-    
-    
-}
+    }
+}   
