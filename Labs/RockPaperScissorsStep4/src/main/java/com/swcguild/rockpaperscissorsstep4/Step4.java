@@ -43,35 +43,48 @@ public class Step4 {
                 pcPick = 1 + r.nextInt(3);
 
                 System.out.println("Computer choice was: " + pcPick);
-
-                if (userPick == pcPick) {
-                    System.out.println("It's a tie.");
-                    ties++;
-                } else if (userPick == 1 && pcPick == 2) {
-                    System.out.println("Computer win!.");
-                    pcWin++;
-                } else if (userPick == 1 && pcPick == 3) {
-                    System.out.println("You win. ");
-                    uWin++;
-                } else if (userPick == 2 && pcPick == 1) {
-                    System.out.println("You win!");
-                    uWin++;
-                } else if (userPick == 2 && pcPick == 3) {
-                    System.out.println("Computer wins.");
-                    pcWin++;
-                } else if (userPick == 3 && pcPick == 1) {
-                    System.out.println("Computer wins.");
-                    pcWin++;
-                } else if (userPick == 3 && pcPick == 2) {
-                    System.out.println("You win!");
-                    uWin++;
-                }
-
+                
+                System.out.println(CheckWinner(userPick, pcPick));
+                
+                 if (CheckWinner(userPick,pcPick).equalsIgnoreCase("Computer win!"))
+                 { pcWin++;
+                 } else if (CheckWinner(userPick, pcPick).equalsIgnoreCase("It's a tie.")) {
+                     ties++;
+                 } else { uWin++;
+                     
+                 }
+                
+                /*  Lab: Refactor RPS
+                
+                 if (userPick == pcPick) {
+                 System.out.println("It's a tie.");
+                 ties++;
+                 } else if (userPick == 1 && pcPick == 2) {
+                 System.out.println("Computer win!.");
+                 pcWin++;
+                 } else if (userPick == 1 && pcPick == 3) {
+                 System.out.println("You win. ");
+                 uWin++;
+                 } else if (userPick == 2 && pcPick == 1) {
+                 System.out.println("You win!");
+                 uWin++;
+                 } else if (userPick == 2 && pcPick == 3) {
+                 System.out.println("Computer wins.");
+                 pcWin++;
+                 } else if (userPick == 3 && pcPick == 1) {
+                 System.out.println("Computer wins.");
+                 pcWin++;
+                 } else if (userPick == 3 && pcPick == 2) {
+                 System.out.println("You win!");
+                 uWin++;
+                 }
+                 */
             }
             System.out.println("=============================");
             System.out.println("Number of game ties: " + ties);
             System.out.println("Number of computer wins: " + pcWin);
             System.out.println("Number of your wins: " + uWin);
+
             if (pcWin > uWin) {
                 System.out.println("Final winnner: Computer");
 
@@ -92,4 +105,48 @@ public class Step4 {
 
         } while (rounds > 10 || rounds <= 0);
     }
+
+    public static String CheckWinner(int player, int computer) {
+        if (player == computer) {
+            return "It's a tie.";
+
+        } else if (player == 1 && computer == 2) {
+            return "Computer win!";
+
+        } else if (player == 1 && computer == 3) {
+            return "You win! ";
+
+        } else if (player == 2 && computer == 1) {
+            return ("You win!");
+
+        } else if (player == 2 && computer == 3) {
+            return ("Computer wins!");
+
+        } else if (player == 3 && computer == 1) {
+            return ("Computer wins!");
+
+        } else {
+            return ("You win!");
+
+        }
+    }
+
 }
+/*
+ Lab: Refactor RPS
+ Refactor your final version of Rock, Paper, Scissors to use methods for better code
+ organization. Follow the process below:
+
+ Plan your methods (check in with instructor after all methods have been planned):
+ ○ How many?
+ ○ Where will they be used?
+ ○ Return types?
+ ○ Parameters?
+ ○ Names?
+ Flowchart each method (check in with instructor after all methods have been
+ flowcharted):
+ ○ What is the internal logic?
+ ○ What are the error conditions?
+ Implement and test (check in with instructor after all methods have been implemented
+ and tested)
+ */
