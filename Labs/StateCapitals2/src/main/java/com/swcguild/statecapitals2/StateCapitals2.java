@@ -100,16 +100,19 @@ public class StateCapitals2 {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter population number to see states at or above that number:");
+        System.out.println("Enter the lower limit for capital city population:");
         int min = sc.nextInt();
             
+        System.out.println("LIST CAPITALS WITH POPULATIONS GREATER THAN " + min +":");
         for (String currentStates : states.keySet()) {
 
             Capital currentCapital = states.get(currentStates);
             int pop = currentCapital.getPopulation();          
+            int area = currentCapital.getSqMi();
 
             if (pop >= min) {
-            System.out.println(currentStates + " " + currentCapital.getName());
+            System.out.println(currentStates + " | "+ currentCapital.getName() + 
+                    "| population: "+ pop + " | Area: " + area);
             }
         }
     }
