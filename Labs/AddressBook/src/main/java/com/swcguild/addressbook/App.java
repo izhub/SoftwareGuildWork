@@ -10,5 +10,9 @@ package com.swcguild.addressbook;
  * @author apprentice
  */
 public class App {
+       public static void main(String[] args) {
+        AddressBookController controller = new AddressBookController();
+        controller.run();
+    }
     
 }

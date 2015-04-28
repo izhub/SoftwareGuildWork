@@ -13,14 +13,18 @@ import java.util.Scanner;
  * @author apprentice
  */
 public class ConsoleIO {
-    Scanner sc = new Scanner (System.in);
+   private Scanner sc = new Scanner (System.in);
     
     String prompt = "";
     int a = 0;
     float b = 0;
     double c = 0;
     
-    public int getInt(String prompt) {
+    public void print(String msg){
+        System.out.println(msg);
+    }
+
+public int getInt(String prompt) {
         System.out.println(prompt);
         a = sc.nextInt();
         return a;
@@ -69,6 +73,8 @@ public class ConsoleIO {
     public void String(String prompt){
         System.out.println(prompt);
     }
+
+    
 }
 /*
 Requirements:
