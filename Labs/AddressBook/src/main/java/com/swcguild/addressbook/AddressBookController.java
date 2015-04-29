@@ -5,6 +5,8 @@
  */
 package com.swcguild.addressbook;
 
+import com.swcguild.consoleio.ConsoleIO;
+
 /**
  *
  * @author apprentice

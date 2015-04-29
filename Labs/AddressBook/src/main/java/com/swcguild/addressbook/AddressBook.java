@@ -5,6 +5,13 @@
  */
 package com.swcguild.addressbook;
 
+import com.swcguild.consoleio.ConsoleIO;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Scanner;
+
 /**
  *
  * @author apprentice
@@ -26,21 +33,48 @@ package com.swcguild.addressbook;
 // Also add code to allow the user so save his/her address back to the file.
 
 public class AddressBook {
-    ConsoleIO con = new ConsoleIO();
+    
+    private static final String ADDRESS_FILE = "addresses.txt";
+    private static final String DELIMITER = "::";
+    
+    private HashMap<Integer, Address> addresses = new HashMap<>();
+    
+    public void loadBook() throws FileNotFoundException {
+        Scanner sc = new Scanner(new BufferedReader(new FileReader(ADDRESS_FILE)));
+        
+        String currentLine;
+        String[] currentTokens;
+        
+        while (sc.hasNextLine()){
+            currentLine = sc.nextLine();
+            currentTokens = currentLine.split(DELIMITER);
+            int key = Integer.parseInt(currentTokens[0]);
+            Address newAddress = new Address();
+            newAddress.setNameFirst(currentTokens[1]);
+            newAddress.setNameLast(currentTokens[2]);
+            newAddress.setStreetAddress(currentTokens[3]);
+            newAddress.setCity(currentTokens[4]);
+            newAddress.setState(currentTokens[5]);
+            newAddress.setZip(currentTokens[6]);
+            
+        }
+    }
+    
+    int uniqueKey = 0;
     
     
+    public void addAddress(Address newAddress){
+        newAddress.s
+        addresses.put(this.uniqueKey, newAddress);
+        
+    }
     
-    public Address addAddress(){
+    public void removeAddress(){
         
         return ;
     }
-    
-    public Address removeAddress(){
-        
-        return ;
-    }
-    public Address findAddressByLastName(String namLast){
-        
+    public Address findAddressByLastName(String nameLast){
+        for ()
         return ;
     }
     public Address countAddress(){

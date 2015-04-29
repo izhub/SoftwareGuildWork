@@ -21,12 +21,25 @@ checking on the “encapsulate...” will make the types private
 
 */        
 public class Address {
-    
 
+     private int uniqueKey;
      private String nameFirst;
      private String nameLast;
-     private String streetAddress;     
+     private String streetAddress;
+     private String city;
+     private String state;
+     private String zip;
 
+    
+     public Address(){}
+     
+    public int getUniqueKey() {
+        return uniqueKey;
+    }
+    
+    public void SetUniqueKey(){
+        
+    }
     public String getNameFirst() {
         return nameFirst;
     }
@@ -50,5 +63,29 @@ public class Address {
     public void setStreetAddress(String street) {
         this.streetAddress = street;
     }     
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
     
 }
