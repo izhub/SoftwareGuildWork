@@ -5,6 +5,8 @@
  */
 package com.swcguild.floormasteryproject.DTO;
 
+import java.util.Objects;
+
 /**
  *
  * @author apprentice
@@ -13,7 +15,7 @@ public class Order {
     private Product product = new Product();
     private Taxes taxes = new Taxes();
     
-    private String orderNumber;
+    private String orderNumber = "0";
     private String customerName;
     private double area;
     private double laborCost;
@@ -92,6 +94,60 @@ public class Order {
 
     public void setMaterialCost(double materialCost) {
         this.materialCost = materialCost;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.product);
+        hash = 79 * hash + Objects.hashCode(this.taxes);
+        hash = 79 * hash + Objects.hashCode(this.orderNumber);
+        hash = 79 * hash + Objects.hashCode(this.customerName);
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.area) ^ (Double.doubleToLongBits(this.area) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.laborCost) ^ (Double.doubleToLongBits(this.laborCost) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.taxesTotal) ^ (Double.doubleToLongBits(this.taxesTotal) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.materialCost) ^ (Double.doubleToLongBits(this.materialCost) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.total) ^ (Double.doubleToLongBits(this.total) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Order other = (Order) obj;
+        if (!Objects.equals(this.product, other.product)) {
+            return false;
+        }
+        if (!Objects.equals(this.taxes, other.taxes)) {
+            return false;
+        }
+        if (!Objects.equals(this.orderNumber, other.orderNumber)) {
+            return false;
+        }
+        if (!Objects.equals(this.customerName, other.customerName)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.area) != Double.doubleToLongBits(other.area)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.laborCost) != Double.doubleToLongBits(other.laborCost)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.taxesTotal) != Double.doubleToLongBits(other.taxesTotal)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.materialCost) != Double.doubleToLongBits(other.materialCost)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.total) != Double.doubleToLongBits(other.total)) {
+            return false;
+        }
+        return true;
     }
     
     

@@ -1,0 +1,4 @@
+order,customerName,state,taxrate,producttype,area,costperquarefoot,laborcostpersquarefoot,materialcost,laborcost,tax,total
+1,zach,OH,6.25,Laminate,32.0,1.75,2.1,56.0,0.0,3.5,59.5
+2,z,IN,6.0,Laminate,5.0,1.75,2.1,8.75,0.0,0.525,9.275
+3,kudo,MI,5.75,Wood,323.0,5.15,4.75,1663.45,0.0,95.648375,1759.098375

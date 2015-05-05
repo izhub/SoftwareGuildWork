@@ -6,13 +6,14 @@
 package com.swcguild.floormasteryproject;
 
 import com.swcguild.floormasteryproject.Controller.OrderController;
+import java.io.FileNotFoundException;
 
 /**
  *
  * @author apprentice
  */
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         OrderController controller = new OrderController();
         controller.run();
     }

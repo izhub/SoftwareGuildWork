@@ -13,7 +13,7 @@ public class Product {
     
     private String producType = "";
     private double costPerSqrFoot = 0;
-    private double laborcost = 0;
+    private double laborCostPerSqrFoot = 0;
     private String id ="";
     
     public String getProducType() {
@@ -32,12 +32,12 @@ public class Product {
         this.costPerSqrFoot = costPerSqrFoot;
     }
 
-    public double getLaborcost() {
-        return laborcost;
+    public double getLaborCostPerSqrFoot() {
+        return laborCostPerSqrFoot;
     }
 
-    public void setLaborcost(double laborcost) {
-        this.laborcost = laborcost;
+    public void setLaborCostPerSqrFoot(double laborCostPerSqrFoot) {
+        this.laborCostPerSqrFoot = laborCostPerSqrFoot;
     }
 
     public String getId() {
