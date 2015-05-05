@@ -5,41 +5,30 @@
  */
 package com.swcguild.addressbook;
 
+import java.util.Objects;
+
 /**
  *
  * @author apprentice
  */
-// this is a DTO (Data Transfer Object) aka domain object
-
-/* Domain/data class for the Class Address application.  Holds all
-  information about an address.  This domain class is used by both the
-  Address UI/App and AddressBook classes to accomplish their respective 
-  tasks.
-
-right click on Address and check “insert code” then select “getters and setters” ; 
-checking on the “encapsulate...” will make the types private
-
-*/        
 public class Address {
-
-     private int uniqueKey;
-     private String nameFirst;
-     private String nameLast;
-     private String streetAddress;
-     private String city;
-     private String state;
-     private String zip;
-
     
-     public Address(){}
-     
+    private int uniqueKey;
+    private String nameFirst;
+    private String nameLast;
+    private String addressStreet;
+    private String addressCity;
+    private String addressState;
+    private String addressZip;
+
     public int getUniqueKey() {
         return uniqueKey;
     }
-    
-    public void SetUniqueKey(){
-        
+
+    public void setUniqueKey(int uniqueKey) {
+        this.uniqueKey= uniqueKey;
     }
+
     public String getNameFirst() {
         return nameFirst;
     }
@@ -56,36 +45,84 @@ public class Address {
         this.nameLast = nameLast;
     }
 
-    public String getStreetAddress() {
-        return streetAddress;
+    public String getAddressStreet() {
+        return addressStreet;
     }
 
-    public void setStreetAddress(String street) {
-        this.streetAddress = street;
-    }     
-
-    public String getCity() {
-        return city;
+    public void setAddressStreet(String addressStreet) {
+        this.addressStreet = addressStreet;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public String getAddressCity() {
+        return addressCity;
     }
 
-    public String getState() {
-        return state;
+    public void setAddressCity(String addressCity) {
+        this.addressCity = addressCity;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public String getAddressState() {
+        return addressState;
     }
 
-    public String getZip() {
-        return zip;
+    public void setAddressState(String addressState) {
+        this.addressState = addressState;
     }
 
-    public void setZip(String zip) {
-        this.zip = zip;
+    public String getAddressZip() {
+        return addressZip;
     }
+
+    public void setAddressZip(String addressZip) {
+        this.addressZip = addressZip;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.uniqueKey;
+        hash = 97 * hash + Objects.hashCode(this.nameFirst);
+        hash = 97 * hash + Objects.hashCode(this.nameLast);
+        hash = 97 * hash + Objects.hashCode(this.addressStreet);
+        hash = 97 * hash + Objects.hashCode(this.addressCity);
+        hash = 97 * hash + Objects.hashCode(this.addressState);
+        hash = 97 * hash + Objects.hashCode(this.addressZip);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Address other = (Address) obj;
+        if (this.uniqueKey != other.uniqueKey) {
+            return false;
+        }
+        if (!Objects.equals(this.nameFirst, other.nameFirst)) {
+            return false;
+        }
+        if (!Objects.equals(this.nameLast, other.nameLast)) {
+            return false;
+        }
+        if (!Objects.equals(this.addressStreet, other.addressStreet)) {
+            return false;
+        }
+        if (!Objects.equals(this.addressCity, other.addressCity)) {
+            return false;
+        }
+        if (!Objects.equals(this.addressState, other.addressState)) {
+            return false;
+        }
+        if (!Objects.equals(this.addressZip, other.addressZip)) {
+            return false;
+        }
+        return true;
+    }
+    
+            
     
 }
