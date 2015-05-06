@@ -1,3 +1,5 @@
+package com.swcguild.floormasteryProejct;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,7 +7,7 @@
  */
 
 import com.swcguild.consoleio.ConsoleIO;
-import com.swcguild.floormasteryproject.DAO.OrderBook;
+import com.swcguild.floormasteryproject.DAO.OrderDAOFileImpl;
 import com.swcguild.floormasteryproject.DTO.Order;
 import java.io.FileNotFoundException;
 import org.junit.After;
@@ -21,7 +23,7 @@ import static org.junit.Assert.*;
  */
 public class OrderBookTest {
 
-    OrderBook orderBook;
+    OrderDAOFileImpl orderBook;
 
     public OrderBookTest() {
 
@@ -37,7 +39,7 @@ public class OrderBookTest {
 
     @Before
     public void setUp() throws FileNotFoundException {
-        orderBook = new OrderBook();
+        orderBook = new OrderDAOFileImpl();
         orderBook.loadProduct();
         orderBook.loadTaxes();
     }

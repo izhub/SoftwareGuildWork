@@ -6,10 +6,13 @@
 package com.swcguild.floormasteryproject.Controller;
 
 import com.swcguild.consoleio.ConsoleIO;
-import com.swcguild.floormasteryproject.DAO.OrderBook;
+import com.swcguild.floormasteryproject.DAO.OrderDAOFileImpl;
+import com.swcguild.floormasteryproject.DAO.ProductDAOFileImpl;
+import com.swcguild.floormasteryproject.DAO.TaxDAOFileImpl;
 import com.swcguild.floormasteryproject.DTO.Order;
 import com.swcguild.floormasteryproject.DTO.Product;
-import com.swcguild.floormasteryproject.DTO.Taxes;
+import com.swcguild.floormasteryproject.DTO.Tax;
+import com.swcguild.floormasteryproject.factory.OrderFactory;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,16 +25,21 @@ import java.util.Date;
 public class OrderController {
 
     ConsoleIO con = new ConsoleIO();
-    OrderBook orderBook = new OrderBook();
+    OrderDAOFileImpl orderBook = new OrderDAOFileImpl();
     String input = "";
+    
+    ProductDAOFileImpl productBook = new ProductDAOFileImpl();
+    TaxDAOFileImpl taxBook = new TaxDAOFileImpl();
+    
+    int orderNumber = 0; 
 
     public void run() throws FileNotFoundException {
         Date date = new Date();
         SimpleDateFormat sdfDate = new SimpleDateFormat("MMddyyyy");
         String today = sdfDate.format(date);
 
-        orderBook.loadProduct();
-        orderBook.loadTaxes();
+        productBook.load();
+        taxBook.load();
 
         boolean exit = false;
 
@@ -87,7 +95,7 @@ public class OrderController {
     }
 
     private void idk() throws FileNotFoundException {
-        OrderBook ob = new OrderBook();
+        OrderDAOFileImpl ob = new OrderDAOFileImpl();
         con.String("input date: 1. Today 2. Month 3. Year ");
         input = con.getString("");
 
@@ -124,43 +132,53 @@ public class OrderController {
     private void addOrder() {
 
         Order order = new Order();
+        
+        String name;
+        double area;
+        String productNum;
+        String state;
+        
+        orderNumber ++;
+        
+        name = con.getString("Enter Customer Name: ");        
 
-        input = con.getString("Enter Customer Name: ");
-        order.setCustomerName(input);
-
-        input = con.getString("Enter area: ");
-        order.setArea(Double.parseDouble(input));
+        area = con.getDoubleMinMax("\nEnter area: ", 0,100000 );
+        
 
         // display product keys and value maps for input option that follows
-        for (Product product : orderBook.getProductMap().values()) {
+        for (Product product : productBook.getListProduct().values()) {
             con.String(product.getId() + " " + product.getProducType()
                     + " Cost per sqr foot: $" + product.getCostPerSqrFoot()
                     + " Labor cost per sqr foot: $" + product.getLaborCostPerSqrFoot());
         }
-        input = con.getString("Enter product number: ");
-        order.setProduct(orderBook.getProductMap().get(input));
+        productNum = con.getString("\nEnter product number: ");
+        
 
         // display product keys and value maps for input option that follows
-        for (Taxes tax : orderBook.getTaxesMap().values()) {
-            con.String("State: " + tax.getState() + "\tTax rate: " + tax.getTaxRate());
+        for (String state1 : taxBook.getListStates()) {
+            con.String("State: " + state1);
         }
-        input = con.getString("Enter state: ");
-        order.setTaxes(orderBook.getTaxesMap().get(input.toUpperCase()));
+        state = con.getString("\nEnter state: ");
+        Tax tax = taxBook.getTax(state.toUpperCase());
+        Product product = productBook.getProduct(productNum);
+        
+        order = OrderFactory.buildOrder(name,tax, area, product, String.valueOf(orderNumber));
 
         // display product keys and value maps for option that follows
-        con.String("Customer name: " + order.getCustomerName()
-                + " Area: " + order.getArea() + " State: " + order.getTaxes().getState()
-                + " Product: " + order.getProduct().getProducType());
+        con.String("\nCustomer name: " + order.getCustomerName()
+                + "\nArea: " + order.getArea() + " \nState: " + order.getTaxes().getState()
+                + " \rProduct: " + order.getProduct().getProducType() +
+                "\nTax: " +order.getTaxesTotal() +"\nTotal: " + order.getTotal());
 
-        input = con.getString("Do you wisn to commit: (Y N)");
+        input = con.getString("Do you wisn to save order: (Y N)");
         if (input.equalsIgnoreCase("Y")) {
-            con.String("yes added");
+            con.String("yes added");           
             orderBook.addOrder(order);  //takes order from addOrder and saves to orderBook
 
         }
     }
 
-    private void display(OrderBook orderBook) {
+    private void display(OrderDAOFileImpl orderBook) {
 
         for (Order order : orderBook.getOrderMap().values()) {
             con.String(order.getOrderNumber() + " " + order.getCustomerName()
@@ -193,7 +211,7 @@ public class OrderController {
 //------------------------------------------------------------------------------
 
 //  get list of states/tax to display first; also prints out key: 
-        for (Taxes tax : orderBook.getTaxesMap().values()) {
+        for (Tax tax : orderBook.getTaxesMap().values()) {
             con.String("State: " + tax.getState() + "\tTax rate: " + tax.getTaxRate());
         }
 

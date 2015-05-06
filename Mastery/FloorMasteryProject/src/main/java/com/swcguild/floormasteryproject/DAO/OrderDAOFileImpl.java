@@ -5,9 +5,10 @@
  */
 package com.swcguild.floormasteryproject.DAO;
 
+import com.swcguild.floormasteryproject.Interface.OrderDAO;
 import com.swcguild.floormasteryproject.DTO.Order;
 import com.swcguild.floormasteryproject.DTO.Product;
-import com.swcguild.floormasteryproject.DTO.Taxes;
+import com.swcguild.floormasteryproject.DTO.Tax;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -24,11 +25,11 @@ import java.util.logging.Logger;
  *
  * @author apprentice
  */
-public class OrderBook implements OrderDAO {
+public class OrderDAOFileImpl implements OrderDAO {
 
     int orderNumber = 1;
     private HashMap<String, Order> orderMap = new HashMap<>();
-    private HashMap<String, Taxes> taxesMap = new HashMap<>();
+    private HashMap<String, Tax> taxesMap = new HashMap<>();
     private HashMap<String, Product> productMap = new HashMap<>();
 
     public HashMap<String, Order> getOrderMap() {
@@ -39,11 +40,11 @@ public class OrderBook implements OrderDAO {
         this.orderMap = orderMap;
     }
 
-    public HashMap<String, Taxes> getTaxesMap() {
+    public HashMap<String, Tax> getTaxesMap() {
         return taxesMap;
     }
 
-    public void setTaxesMap(HashMap<String, Taxes> taxesMap) {
+    public void setTaxesMap(HashMap<String, Tax> taxesMap) {
         this.taxesMap = taxesMap;
     }
 
@@ -55,55 +56,14 @@ public class OrderBook implements OrderDAO {
         this.productMap = productMap;
     }
 
-    @Override
-    public void loadTaxes() throws FileNotFoundException {
-        String nextLine = "";
-        String[] array = new String[2];
-        Scanner sc = new Scanner(new BufferedReader(new FileReader("taxes.txt")));
-        sc.nextLine();
+ 
 
-        while (sc.hasNext()) {
-            nextLine = sc.nextLine();
-            array = nextLine.split(",");
-            Taxes taxes = new Taxes();
-            taxes.setState(array[0]);
-            taxes.setTaxRate(Double.parseDouble(array[1]));
-            taxesMap.put(taxes.getState(), taxes);
-        }
-    }
-
-    @Override
-    public void loadProduct() throws FileNotFoundException {
-        String nextLine = "";
-        String[] array = new String[3];
-        Scanner sc = new Scanner(new BufferedReader(new FileReader("product.txt")));
-        sc.nextLine();
-        int id = 1;
-
-        while (sc.hasNext()) {
-            nextLine = sc.nextLine();
-            array = nextLine.split(",");
-            Product product = new Product();
-            product.setId(String.valueOf(id));
-            product.setProducType(array[0]);
-            product.setCostPerSqrFoot(Double.parseDouble(array[1]));
-            product.setLaborCostPerSqrFoot(Double.parseDouble(array[2]));
-            productMap.put(product.getId(), product);
-            id++;
-        }
-    }
+    
+    
 
     @Override
     public Order addOrder(Order order) {
-        order.setLaborCost(order.getLaborCost() * order.getArea());
-        order.setMaterialCost(order.getProduct().getCostPerSqrFoot() * order.getArea());
-        order.setTaxesTotal(order.getTaxes().getTaxRate() / 100 * (order.getMaterialCost() + order.getLaborCost()));
-        order.setTotal(order.getLaborCost() + order.getMaterialCost() + order.getTaxesTotal());
-
-        if (order.getOrderNumber().equals("0")) {
-            order.setOrderNumber(String.valueOf(orderNumber));
-            orderNumber++;
-        }
+        
         return orderMap.put(order.getOrderNumber(), order);
 
     }
@@ -123,7 +83,7 @@ public class OrderBook implements OrderDAO {
           order.setOrderNumber(array[0]);
           order.setCustomerName(array[1]);
           
-          Taxes tx = new Taxes();
+          Tax tx = new Tax();
           tx.setState(array[2]);
           tx.setTaxRate(Double.parseDouble(array[3]));
           order.setTaxes(tx);
@@ -170,7 +130,7 @@ public class OrderBook implements OrderDAO {
             }
             out.close();
         } catch (IOException ex) {
-            Logger.getLogger(OrderBook.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrderDAOFileImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
        
     }

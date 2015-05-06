@@ -1,0 +1,4 @@
+order,customerName,state,taxrate,producttype,area,costperquarefoot,laborcostpersquarefoot,materialcost,laborcost,tax,total
+1,Eric Ward,OH,6.25,Wood,200.0,5.15,4.75,1030.0,0.0,64.375,1094.375
+2,Acme,IN,6.0,Wood,-32.0,5.15,4.75,-164.8,-0.0,-9.888,-174.68800000000002
+3,Jon Doe,MI,5.75,Tile,0.0,3.5,4.15,0.0,0.0,0.0,0.0

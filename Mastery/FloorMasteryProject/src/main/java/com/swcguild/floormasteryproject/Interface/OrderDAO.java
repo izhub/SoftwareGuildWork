@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.swcguild.floormasteryproject.DAO;
+package com.swcguild.floormasteryproject.Interface;
 
 import com.swcguild.floormasteryproject.DTO.Order;
 import java.io.FileNotFoundException;
@@ -19,8 +19,6 @@ public interface OrderDAO {
 //    then implement in orderBook and it will create the methods with @Override
     
     public void loadOrder(String date)throws FileNotFoundException;
-    public void loadTaxes()throws FileNotFoundException;
-    public void loadProduct()throws FileNotFoundException;
     public Order addOrder(Order order);
     public Order removeOrder(String orderNumber);
     public void saveOrder(String date);

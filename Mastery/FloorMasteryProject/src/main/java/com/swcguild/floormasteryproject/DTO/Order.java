@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public class Order {
     private Product product = new Product();
-    private Taxes taxes = new Taxes();
+    private Tax taxes = new Tax();
     
     private String orderNumber = "0";
     private String customerName;
@@ -32,11 +32,11 @@ public class Order {
         this.product = product;
     }
 
-    public Taxes getTaxes() {
+    public Tax getTaxes() {
         return taxes;
     }
 
-    public void setTaxes(Taxes taxes) {
+    public void setTaxes(Tax taxes) {
         this.taxes = taxes;
     }
 

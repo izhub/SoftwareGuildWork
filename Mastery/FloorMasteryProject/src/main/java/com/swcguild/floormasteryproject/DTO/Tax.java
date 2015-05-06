@@ -9,7 +9,7 @@ package com.swcguild.floormasteryproject.DTO;
  *
  * @author apprentice
  */
-public class Taxes {
+public class Tax {
     
     private String state = "";
     private double taxRate = 0;
