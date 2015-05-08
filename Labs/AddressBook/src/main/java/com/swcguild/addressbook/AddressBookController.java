@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -33,6 +34,8 @@ public class AddressBookController {
             while (keepGoing) {
                 printMenu();
                 int userSelection = con.getInt("Please enter your selection: ");
+
+//int above eats the return carriage, need to add back in so it doens't skip
                 con.getString("");
 
                 switch (userSelection) {
@@ -66,7 +69,10 @@ public class AddressBookController {
                         break;
                     default:
                         con.String("Invalid Selection");
+                        break;
                 }
+
+        
             }
             con.String("Thanks for playing");
             book.writeBook();
@@ -81,7 +87,7 @@ public class AddressBookController {
         con.print("\n Home Menu");
         con.print("1. Add address");
         con.print("2. Delete address");
-        con.print("3. Find aAddress by last name");
+        con.print("3. Find Address by last name");
         con.print("4. List address count");
         con.print("5. List all addresses");
         con.print("6. Edit an address");
@@ -195,7 +201,7 @@ public class AddressBookController {
                     results.get(key).setAddressCity(revisedLine);
                     break;
                 case 5:
-                    results.get(key).setAddressState(lastName);
+                    results.get(key).setAddressState(revisedLine);
                     break;
                 case 6:
                     results.get(key).setAddressZip(revisedLine);
