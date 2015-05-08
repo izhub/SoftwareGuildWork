@@ -13,10 +13,19 @@ import com.swcguild.floormasteryproject.DTO.Order;
 import com.swcguild.floormasteryproject.DTO.Product;
 import com.swcguild.floormasteryproject.DTO.Tax;
 import com.swcguild.floormasteryproject.factory.OrderFactory;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  *
@@ -27,16 +36,20 @@ public class OrderController {
     ConsoleIO con = new ConsoleIO();
     OrderDAOFileImpl orderBook = new OrderDAOFileImpl();
     String input = "";
-    
+    String config = "";
     ProductDAOFileImpl productBook = new ProductDAOFileImpl();
     TaxDAOFileImpl taxBook = new TaxDAOFileImpl();
-    
-    int orderNumber = 0; 
 
-    public void run() throws FileNotFoundException {
-        Date date = new Date();
-        SimpleDateFormat sdfDate = new SimpleDateFormat("MMddyyyy");
-        String today = sdfDate.format(date);
+    int orderNumber = 0;
+    Date date = new Date();
+    SimpleDateFormat sdfDate = new SimpleDateFormat("MMddyyyy");
+    String today = sdfDate.format(date);
+    String selectedDate = today;
+
+    public void run() throws FileNotFoundException, IOException {
+        loadCofnig();
+
+        orderBook.addDate(today);
 
         productBook.load();
         taxBook.load();
@@ -50,37 +63,56 @@ public class OrderController {
         }
 //  do the swtich and menu first; add do/while next; try/catch next
         do {
+            StringBuilder sb = new StringBuilder();
+            sb.append(selectedDate.substring(0, 2));
+            sb.append("/");
+            sb.append(selectedDate.substring(2, 4));
+            sb.append("/");
+            sb.append(selectedDate.substring(4));
             con.String("***********************************************************");
             con.String("*                    Flooring Program                     *");
-            con.String("*                                                         *");
-            con.String("* 1. Display Orders                                       *");
-            con.String("* 2. Add an Order                                         *");
-            con.String("* 3. Edit an Order                                        *");
-            con.String("* 4. Remove an Order                                      *");
-            con.String("* 5. Save Current Work                                    *");
-            con.String("* 6. Quit                                                 *");
+//            con.String("* Open dates: "+orderBook.getdateKeys());
+            con.String("* selected date:  " + sb);
+            if (!config.equals("test")) {
+                con.String("* 1. Enter Date                                           *");
+            }
+
+            con.String("* 2. Display Orders                                       *");
+            con.String("* 3. Add an Order                                         *");
+            con.String("* 4. Edit an Order                                        *");
+            con.String("* 5. Remove an Order                                      *");
+            con.String("* 6. Save Current Work                                    *");
+            con.String("* 7. Quit                                                 *");
             con.String("*                                                         *");
             con.String("***********************************************************");
 
             input = con.getString("");
             try {
                 switch (input) {
+
                     case "1":
-                        display(orderBook);
+                        if (config.equals("test")) {
+                            break;
+                        }
+                        enterDate();
                         break;
                     case "2":
-                        addOrder();
+                        display(orderBook);
                         break;
                     case "3":
-                        editOrder();
+                        addOrder();
                         break;
                     case "4":
-                        removeOrder();
+                        editOrder();
                         break;
                     case "5":
-                        orderBook.saveOrder(today);
+                        removeOrder();
                         break;
                     case "6":
+                        saveOrder();
+
+                        break;
+                    case "7":
                         exit = true;
                         break;
                     default:
@@ -88,110 +120,140 @@ public class OrderController {
                         break;
                 }
             } catch (Exception e) {
-                con.String("error don't do that");
+                con.String("Invalid input");
             }
 
         } while (!exit);
+        saveConfig();
     }
 
-    private void idk() throws FileNotFoundException {
-        OrderDAOFileImpl ob = new OrderDAOFileImpl();
-        con.String("input date: 1. Today 2. Month 3. Year ");
-        input = con.getString("");
-
-        switch (input) {
-            case "1":
-                input = con.getString("Enter date in the format of MMDDYYYY");
-                ob.loadOrder(input);
-                display(ob);
-                break;
-            case "2":
-                int year = Calendar.getInstance().get(Calendar.YEAR);
-                int month = Calendar.getInstance().get(Calendar.MONTH);
-
-                for (int i = 0; i < 31; i++) {
-                    try {
-                        StringBuilder day = new StringBuilder();
-                        if (i < 10) {
-                            day.append("0");
-                        }
-                        day.append(i);
-                        ob.loadOrder(String.valueOf(month) + day.toString() + String.valueOf(year));
-                    } catch (Exception e) {
-
-                    }
-                }
-                display(ob);
-                break;
-            case "3":
-                
-
-        }
-    }
-
-    private void addOrder() {
+    private void addOrder() throws IOException {
 
         Order order = new Order();
-        
+
         String name;
         double area;
         String productNum;
         String state;
-        
-        orderNumber ++;
-        
-        name = con.getString("Enter Customer Name: ");        
+        String date = selectedDate;
 
-        area = con.getDoubleMinMax("\nEnter area: ", 0,100000 );
-        
+        orderNumber++;
+
+        name = con.getString("Enter Customer Name: ");
+
+        area = con.getDoubleMinMax("\nEnter area: ", 1, 100000);
 
         // display product keys and value maps for input option that follows
         for (Product product : productBook.getListProduct().values()) {
             con.String(product.getId() + " " + product.getProducType()
-                    + " Cost per sqr foot: $" + product.getCostPerSqrFoot()
-                    + " Labor cost per sqr foot: $" + product.getLaborCostPerSqrFoot());
+                    + " Cost/sqr foot: $" + product.getCostPerSqrFoot()
+                    + " Labor/sqr foot: $" + product.getLaborCostPerSqrFoot());
         }
-        productNum = con.getString("\nEnter product number: ");
-        
+        productNum = String.valueOf(con.intMinMax("Product Number: ", 1, 4));
 
         // display product keys and value maps for input option that follows
-        for (String state1 : taxBook.getListStates()) {
-            con.String("State: " + state1);
-        }
-        state = con.getString("\nEnter state: ");
-        Tax tax = taxBook.getTax(state.toUpperCase());
+        boolean exit = false;
+        do {
+            for (String state1 : taxBook.getListStates()) {
+                con.String("State: " + state1);
+            }
+            state = con.getString("\nEnter state from the list above: ").toUpperCase();
+            for (String state1 : taxBook.getListStates()) {
+                if (state.equals(state1)) {
+                    exit = true;
+                }
+            }
+        } while (!exit);
+
+        Tax tax = taxBook.getTax(state);
         Product product = productBook.getProduct(productNum);
-        
-        order = OrderFactory.buildOrder(name,tax, area, product, String.valueOf(orderNumber));
+
+        if (!config.equals("test")) {
+            do {
+                input = con.getString("date " + selectedDate + " hit enter to keep or enter new date MMDDYYYY");
+                if (input.equals("")) {
+                    date = selectedDate;
+                } else {
+                    date = OrderFactory.changeDate(input);
+                }
+
+            } while (date.equals(""));
+            if (!date.equals(selectedDate)) {
+                orderBook.saveOrder(selectedDate);
+                orderBook.addDate(date);
+            }
+        } else {
+            date = selectedDate;
+        }
+
+        order = OrderFactory.buildOrder(date, name, tax, area, product, String.valueOf(orderNumber));
 
         // display product keys and value maps for option that follows
         con.String("\nCustomer name: " + order.getCustomerName()
-                + "\nArea: " + order.getArea() + " \nState: " + order.getTaxes().getState()
-                + " \rProduct: " + order.getProduct().getProducType() +
-                "\nTax: " +order.getTaxesTotal() +"\nTotal: " + order.getTotal());
+                + "\nState: " + order.getTaxes().getState()
+                + "\nArea: " + order.getArea()
+                + "\rProduct: " + order.getProduct().getProducType()
+                + "\nCost/sqr Foot: $" + order.getProduct().getCostPerSqrFoot()
+                + "\nLabor Cost/sqr Foot: $" + order.getProduct().getLaborCostPerSqrFoot()
+                + "\nMaterial Cost: $" + String.format("%.2f", order.getMaterialCost())
+                + "\nlabor Cost: $" + String.format("%.2f", order.getLaborCost())
+                + "\nTax rate: $" + order.getTaxes().getTaxRate()
+                + "\nTax: $" + String.format("%.2f", order.getTaxesTotal())
+                + "\nTotal: $" + String.format("%.2f", order.getTotal()));
 
         input = con.getString("Do you wisn to save order: (Y N)");
         if (input.equalsIgnoreCase("Y")) {
-            con.String("yes added");           
-            orderBook.addOrder(order);  //takes order from addOrder and saves to orderBook
+            con.String("yes added");
+            saveConfig();
+            orderBook.addOrder(order, date);  //takes order from addOrder and saves to orderBook
 
+        } else {
+            con.String("not added order canceled");
         }
     }
 
     private void display(OrderDAOFileImpl orderBook) {
+//        for(HashMap<String,Order> orderMap: orderBook.getOrderByDates().values()){
+//            for (Order order : orderMap.values()) {
+//            con.String(order.getOrderNumber() + " " + order.getCustomerName()
+//                    + " " + order.getProduct().getProducType() + " " + order.getTotal()+"  " + order.getDate());
+//        }
+//
+//        }
 
-        for (Order order : orderBook.getOrderMap().values()) {
-            con.String(order.getOrderNumber() + " " + order.getCustomerName()
-                    + " " + order.getProduct().getProducType() + " " + order.getTotal());
+        for (Order order : orderBook.getOrderByDates().get(selectedDate).values()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(order.getDate().substring(0, 2));
+            sb.append("/");
+            sb.append(order.getDate().substring(2, 4));
+            sb.append("/");
+            sb.append(order.getDate().substring(4));
+
+            con.String("Order Number: " + order.getOrderNumber() + "  Name: "
+                    + order.getCustomerName() + "  State: " + order.getTaxes().getState()
+                    + "  Product: " + order.getProduct().getProducType()
+                    + "  Sqr/Foot: $" + order.getProduct().getCostPerSqrFoot()
+                    + "  Labor/Sqr: $" + order.getProduct().getLaborCostPerSqrFoot()
+                    + "  Total: $" + String.format("%.2f", order.getTotal())
+                    + "   Date: " + sb.toString());
         }
 
     }
 
     private void editOrder() {
+
         display(orderBook);
         input = con.getString("Enter order number to edit: ");
+
         Order order = new Order();
-        order = orderBook.getOrderMap().get(input);
+
+        order = orderBook.getOrder(input);
+        if (order.getCustomerName().isEmpty()) {
+            con.String("no such order");
+            return;
+        }
+
+        String date = order.getDate();
 
         con.String("Enter to keep name or type new name \r" + order.getCustomerName());
         input = con.getString("");
@@ -201,47 +263,109 @@ public class OrderController {
             order.setCustomerName(input);
         }
 //------------------------------------------------------------------------------
-        con.String("Enter to keep Area or type new area \r" + order.getArea());
-        input = con.getString("");
+        do {
+            con.String("Enter to keep Area or type new area \r" + order.getArea());
+            input = con.getString("");
 
-//    if user typed in new state:    
-        if (!input.equals("")) {
-            order.setArea(Double.parseDouble(input));
-        }
+            if (!input.equals("")) {
+                order.setArea(Double.parseDouble(input));
+
+            } else {
+                break;
+            }
+
+        } while (Double.parseDouble(input) < 13 || Double.parseDouble(input) > 1000000);
+
 //------------------------------------------------------------------------------
-
 //  get list of states/tax to display first; also prints out key: 
-        for (Tax tax : orderBook.getTaxesMap().values()) {
-            con.String("State: " + tax.getState() + "\tTax rate: " + tax.getTaxRate());
-        }
+        String state = order.getTaxes().getState();
+        boolean exit = false;
+        do {
+            for (String state1 : taxBook.getListStates()) {
+                con.String("State: " + state1);
+            }
+            con.String("Enter to keep state or type new state from the list above \r" + order.getTaxes().getState());
+            input = con.getString("");
+            input = input.toUpperCase();
+            if (input.equals("")) {
+                input = order.getTaxes().getState();
+            }
+            for (String state1 : taxBook.getListStates()) {
+                if (input.equals(state1)) {
+                    exit = true;
+                }
+            }
+        } while (!exit);
 
-        con.String("Enter to keep state or type new state \r" + order.getTaxes().getState());
-        input = con.getString("");
+        order.setTaxes(taxBook.getTax(input.toUpperCase()));
 
 //  if user typed in new state:
-        if (!input.equals("")) {
-            order.setTaxes(orderBook.getTaxesMap().get(input.toUpperCase()));
-        }
 //------------------------------------------------------------------------------
-
 //  get a list of product types and their values:
-        for (Product product : orderBook.getProductMap().values()) {
-            con.String(product.getId() + " " + product.getProducType()
-                    + " Cost per sqr foot: $" + product.getCostPerSqrFoot()
-                    + " Labor cost per sqr foot: $" + product.getLaborCostPerSqrFoot());
-        }
+        do {
 
-        con.String("Enter to keep product type or update to new product type\r"
-                + order.getProduct().getProducType());
-        input = con.getString("");
+            exit = true;
+            for (Product product : productBook.getListProduct().values()) {
+                con.String(product.getId() + " " + product.getProducType()
+                        + " Cost/sqr foot: $" + product.getCostPerSqrFoot()
+                        + " Labor/sqr foot: $" + product.getLaborCostPerSqrFoot());
+            }
+
+            con.String("\nEnter to keep product type or update from list above\r"
+                    + order.getProduct().getProducType());
+            input = con.getString("");
 
 //  if user typed in new product type:
-        if (!input.equals("")) {
-            order.setProduct(orderBook.getProductMap().get(input));
+            if (!input.equals("")) {
+                try {
+                    if (Integer.parseInt(input) < 0 || Integer.parseInt(input) > 4) {
+                        exit = false;
+                    } else {
+                        order.setProduct(productBook.getProduct(input));
+                    }
+                } catch (Exception e) {
+                    exit = false;
+                }
+
+            }
+
+        } while (!exit);
+
+        if (!config.equals("test")) {
+            do {
+                input = con.getString("date " + selectedDate 
+                        + " hit enter to keep or enter new date MMDDYYYY: year range 2010-2015");
+                if (input.equals("")) {
+                    date = order.getDate();
+                } else {
+                    date = OrderFactory.changeDate(input);
+                }
+
+            } while (date.equals(""));
+            orderBook.addDate(date);
+            order.setDate(date);
         }
 //------------------------------------------------------------------------------
+        orderBook.addDate(order.getDate());
+        order = OrderFactory.buildOrder(order.getDate(), order.getCustomerName(),
+                order.getTaxes(), order.getArea(), order.getProduct(), order.getOrderNumber());
+        orderBook.removeOrder(order.getOrderNumber());
+        orderBook.addOrder(order, order.getDate());
 
-        orderBook.addOrder(order);
+        con.String("\nCustomer name: " + order.getCustomerName()
+                + "\nState: " + order.getTaxes().getState()
+                + "\nArea: " + order.getArea()
+                + "\rProduct: " + order.getProduct().getProducType()
+                + "\nCost/sqr Foot: $" + order.getProduct().getCostPerSqrFoot()
+                + "\nLabor Cost/sqr Foot: $" + order.getProduct().getLaborCostPerSqrFoot()
+                + "\nMaterial Cost: $" + String.format("%.2f",order.getMaterialCost())
+                + "\nlabor Cost: $" + String.format("%.2f", order.getLaborCost())
+                + "\nTax rate: $" + order.getTaxes().getTaxRate()
+                + "\nTax: $" + String.format("%.2f", order.getTaxesTotal())
+                + "\nTotal: $" + String.format("%.2f", order.getTotal()));
+
+        con.getString("\nEnter to continue...");
+
         display(orderBook);
     }
 
@@ -252,4 +376,56 @@ public class OrderController {
         orderBook.removeOrder(input);
     }
 
+    public void saveConfig() throws IOException {
+        PrintWriter out = new PrintWriter(new FileWriter("config.txt"));
+
+//       test/prod,orderNumber
+        out.println("test/prod, orderNumber");
+        out.println(config + "," + orderNumber);
+        out.flush();
+        out.close();
+    }
+
+    public void loadCofnig() throws FileNotFoundException {
+        Scanner sc = new Scanner(new BufferedReader(new FileReader("config.txt")));
+
+        String[] array = new String[2];
+        String line;
+
+        sc.nextLine();
+
+        line = sc.nextLine();
+        array = line.split(",");
+        config = array[0];
+        orderNumber = Integer.parseInt(array[1]);
+    }
+
+    private void enterDate() {
+        String date = "";
+
+        boolean add = true;
+        do {
+            input = con.getString("enter date in form of MMDDYYYY: year range 2010-2015");
+            input = OrderFactory.changeDate(input);
+
+        } while (input.equals(""));
+        selectedDate = input;
+
+        for (String aDate : orderBook.getdateKeys()) {
+            if (aDate.equals(input)) {
+                add = false;
+            }
+        }
+        if (add) {
+            orderBook.addDate(input);
+        }
+
+    }
+
+private void saveOrder() {
+        for (String date : orderBook.getOrderByDates().keySet()) {
+            orderBook.saveOrder(date);
+        }
+
+    }
 }

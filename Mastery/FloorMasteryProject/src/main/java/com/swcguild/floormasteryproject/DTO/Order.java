@@ -15,6 +15,7 @@ public class Order {
     private Product product = new Product();
     private Tax taxes = new Tax();
     
+    private String date;
     private String orderNumber = "0";
     private String customerName;
     private double area;
@@ -148,6 +149,14 @@ public class Order {
             return false;
         }
         return true;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
     
     

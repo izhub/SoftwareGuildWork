@@ -1,0 +1,3 @@
+order,customerName,state,taxrate,producttype,area,costperquarefoot,laborcostpersquarefoot,materialcost,laborcost,tax,total
+5,~~~~~zach~,PA,6.75,Laminate,3.0,1.75,2.1,5.25,6.300000000000001,0.7796250000000001,12.329625
+28,Ilya~ Gotfryd,OH,6.25,Wood,4321.0,5.15,4.75,22253.15,20524.75,2673.61875,45451.51875

@@ -8,7 +8,12 @@ package com.swcguild.floormasteryProejct;
 
 import com.swcguild.consoleio.ConsoleIO;
 import com.swcguild.floormasteryproject.DAO.OrderDAOFileImpl;
+import com.swcguild.floormasteryproject.DAO.ProductDAOFileImpl;
+import com.swcguild.floormasteryproject.DAO.TaxDAOFileImpl;
 import com.swcguild.floormasteryproject.DTO.Order;
+import com.swcguild.floormasteryproject.DTO.Product;
+import com.swcguild.floormasteryproject.DTO.Tax;
+import com.swcguild.floormasteryproject.factory.OrderFactory;
 import java.io.FileNotFoundException;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -24,6 +29,9 @@ import static org.junit.Assert.*;
 public class OrderBookTest {
 
     OrderDAOFileImpl orderBook;
+    ProductDAOFileImpl  productDao;
+    TaxDAOFileImpl taxDao;
+    
 
     public OrderBookTest() {
 
@@ -40,8 +48,11 @@ public class OrderBookTest {
     @Before
     public void setUp() throws FileNotFoundException {
         orderBook = new OrderDAOFileImpl();
-        orderBook.loadProduct();
-        orderBook.loadTaxes();
+        productDao = new ProductDAOFileImpl();
+             taxDao = new  TaxDAOFileImpl();  
+        productDao.load();
+        taxDao.load();
+//        
     }
 
     @After
@@ -54,15 +65,30 @@ public class OrderBookTest {
     // @Test
     // public void hello() {}
     @Test
-    public void addOrderTest() {
+    public void addOrderTest() throws FileNotFoundException {  
+        
+        
         Order order = new Order();
-        order.setCustomerName("TestFirst");
-        order.setArea(32);
-        order.setProduct(orderBook.getProductMap().get("1"));
-        order.setTaxes(orderBook.getTaxesMap().get("OH"));
-        orderBook.addOrder(order);
-        assertEquals(order, orderBook.getOrderMap().get("1"));
-
+        Tax tax = taxDao.getTax("PA");
+        Product product = productDao.getProduct("1");
+        orderBook.addDate("2");
+        order = OrderFactory.buildOrder("2", "3", tax, 5, product, "7");
+        orderBook.addOrder(order,"2");
+        assertEquals(order, orderBook.getOrderByDates().get("2").get("7"));
+        
+    }
+    @Test
+    public void TestRemove(){
+       
+        
+        Order order = new Order();
+        Tax tax = taxDao.getTax("PA");
+        Product product = productDao.getProduct("1");
+        orderBook.addDate("2");
+        order = OrderFactory.buildOrder("2", "3", tax, 5, product, "7");
+        orderBook.addOrder(order,"2");
+        orderBook.removeOrder("7");
+        
     }
 
 }
