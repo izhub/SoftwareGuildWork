@@ -16,5 +16,6 @@ public interface Queque extends Iterable{
     
     public boolean isEmpty();
     public int size();
+    public Object[] getArray();
     
 }

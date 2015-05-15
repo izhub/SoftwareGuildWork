@@ -15,7 +15,7 @@ public class ArrayStack implements Stack {
 
     private static final int DEFAULT_INITIAL_SIZE = 4;
     private Object[] items;
-    int numItems = 0000000000000000000000000000000000000;
+    int numItems = 000000;
 
     public ArrayStack() {
         this(DEFAULT_INITIAL_SIZE);
