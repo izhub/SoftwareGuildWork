@@ -12,7 +12,7 @@ package com.swcguild.datastructures.queque;
 public class ArrayQuequeDriver {
     public static void main(String[] args) {
         
-        Queque q = new ArrayQueque(3);
+        Queque q = new LinkedListQueque(); // change ArrayQueque to LinkedListQueque
         
                 
         q.enqueque("a");
@@ -20,24 +20,9 @@ public class ArrayQuequeDriver {
         q.enqueque("c");
         q.enqueque("d");
         
-//        System.out.println(q.dequeque());
-        
-//        for ( Object left : q){
-//            System.out.println(left);
-//        }
-//        
-//        System.out.println("+++++++++++++++++++++++++++++++++++++++++");
-//        Integer in1 = 1;
-//        Integer in2 = 2;
-//        
-//        q.enqueque(1);
-//        q.enqueque((2));
-//        
-//        System.out.println(q.dequeque());
-//        System.out.println(q.dequeque());
-//        System.out.println(q.dequeque());
-//        System.out.println(q.dequeque());
-//        System.out.println(q.dequeque());
+        System.out.println(q.dequeque());
+        System.out.println(q.dequeque());
+        System.out.println(q.dequeque());
         
         
     }

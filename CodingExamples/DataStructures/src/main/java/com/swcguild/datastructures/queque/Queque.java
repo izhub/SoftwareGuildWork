@@ -18,4 +18,10 @@ public interface Queque extends Iterable{
     public int size();
     public Object[] getArray();
     
+
+    public void prepend();
+    public void append();
+    public void insert();
+    public void remove();
+    
 }

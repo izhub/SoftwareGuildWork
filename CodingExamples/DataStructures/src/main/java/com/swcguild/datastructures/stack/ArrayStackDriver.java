@@ -12,7 +12,7 @@ package com.swcguild.datastructures.stack;
 public class ArrayStackDriver {
     public static void main(String[] args) {
         
-        Stack s = new ArrayStack(); //change Arraystack() to LinkedListStac(), should work the same
+        Stack s = new LinkedListStack(); //change Arraystack() to LinkedListStack(), should work the same
         
         String a = "a";
         String b = "b";

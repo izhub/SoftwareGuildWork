@@ -45,7 +45,8 @@ public class StackTest {
     @Test
     public void canStackTest() {
 
-        Stack s = new ArrayStack(5);
+        Stack s = new LinkedListStack(); 
+//changed from ArrayStack to test LinkedListStack
 
         s.push("A");
         s.push("B");
