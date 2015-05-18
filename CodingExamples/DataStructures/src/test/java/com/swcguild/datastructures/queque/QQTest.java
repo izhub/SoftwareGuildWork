@@ -68,10 +68,10 @@ public class QQTest {
         
 //     assertEquals(q.getArray()[0], array[0]);  //NullpointerException
         
-       for (int i = 0; i < q.size(); i++) {
+//       for (int i = 0; i < q.size(); i++) {
 //           assertTrue(q.getArray()[i].equals(array[i])); //NullpointerException
-       
-    }
+//       
+//    }
        
        assertTrue(q.dequeque().equals("A"));
        assertTrue(q.dequeque().equals("B"));
