@@ -6,6 +6,7 @@
 package com.swcguild.dvdlibrarywithstreams;
 
 import com.swcguild.dvdlibrarywithstreams.controller.DVDLibraryController;
+import java.io.IOException;
 
 /**
  *
@@ -13,7 +14,8 @@ import com.swcguild.dvdlibrarywithstreams.controller.DVDLibraryController;
  */
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException  {
+        
         DVDLibraryController control = new DVDLibraryController();
         control.run();
     }
