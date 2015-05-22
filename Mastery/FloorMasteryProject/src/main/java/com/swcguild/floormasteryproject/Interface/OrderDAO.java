@@ -7,6 +7,7 @@ package com.swcguild.floormasteryproject.Interface;
 
 import com.swcguild.floormasteryproject.DTO.Order;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -21,7 +22,18 @@ public interface OrderDAO {
     
     public HashMap<String,Order> loadOrder(String date)throws FileNotFoundException;
     public HashMap<String, Order> addOrder(Order order,String date);
+    public HashMap<String, Order> getOrderMap();
+    public HashMap<String, HashMap<String, Order>> getOrderByDates();
+    public void setOrderByDates(HashMap<String, HashMap<String, Order>> orderByDates);
+    public void setOrderMap(HashMap<String, Order> orderMap) ;
+    
     public Order removeOrder(String orderNumber);
     public void saveOrder(String date);
+    public void addDate(String date);
     
+     public void removeDate(String date);
+     public ArrayList<String> getdateKeys();
+     public Order getOrder(String input);
+     public String dealingWithCommas(String commas);
+     public String againdDealingWithCommas(String commas);
 }

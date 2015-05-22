@@ -6,25 +6,21 @@
 package com.swcguild.floormasteryproject.Controller;
 
 import com.swcguild.consoleio.ConsoleIO;
-import com.swcguild.floormasteryproject.DAO.OrderDAOFileImpl;
-import com.swcguild.floormasteryproject.DAO.ProductDAOFileImpl;
-import com.swcguild.floormasteryproject.DAO.TaxDAOFileImpl;
 import com.swcguild.floormasteryproject.DTO.Order;
 import com.swcguild.floormasteryproject.DTO.Product;
 import com.swcguild.floormasteryproject.DTO.Tax;
-import com.swcguild.floormasteryproject.factory.OrderFactory;
+import com.swcguild.floormasteryproject.Factory.OrderFactory;
+import com.swcguild.floormasteryproject.Interface.OrderDAO;
+import com.swcguild.floormasteryproject.Interface.ProductDAO;
+import com.swcguild.floormasteryproject.Interface.TaxDAO;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -34,12 +30,23 @@ import java.util.Scanner;
 public class OrderController {
 
     ConsoleIO con = new ConsoleIO();
-    OrderDAOFileImpl orderBook = new OrderDAOFileImpl();
+//    OrderDAOFileImpl orderBook = new OrderDAOFileImpl();
+//    ProductDAOFileImpl productBook = new ProductDAOFileImpl();
+//    TaxDAOFileImpl taxBook = new TaxDAOFileImpl();
+//    
+    OrderDAO orderBook;
+    ProductDAO productBook ;
+    TaxDAO taxBook;
+    
+    public OrderController(OrderDAO orderBook, ProductDAO productBook, TaxDAO taxBook){
+        this.orderBook=orderBook;
+        this.productBook = productBook;
+        this.taxBook = taxBook;
+
+    }
+    
     String input = "";
     String config = "";
-    ProductDAOFileImpl productBook = new ProductDAOFileImpl();
-    TaxDAOFileImpl taxBook = new TaxDAOFileImpl();
-
     int orderNumber = 0;
     Date date = new Date();
     SimpleDateFormat sdfDate = new SimpleDateFormat("MMddyyyy");
@@ -212,7 +219,7 @@ public class OrderController {
         }
     }
 
-    private void display(OrderDAOFileImpl orderBook) {
+    private void display(OrderDAO orderBook) {
 //        for(HashMap<String,Order> orderMap: orderBook.getOrderByDates().values()){
 //            for (Order order : orderMap.values()) {
 //            con.String(order.getOrderNumber() + " " + order.getCustomerName()

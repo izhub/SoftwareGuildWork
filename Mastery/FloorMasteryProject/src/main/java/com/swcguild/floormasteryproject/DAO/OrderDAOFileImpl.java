@@ -30,29 +30,31 @@ public class OrderDAOFileImpl implements OrderDAO {
 
     int orderNumber = 1;
     private HashMap<String, Order> orderMap = new HashMap<>();
-
     private HashMap<String, HashMap<String, Order>> orderByDates = new HashMap<>();
 
+    @Override
     public HashMap<String, Order> getOrderMap() {
-
         return orderMap;
     }
 
+    @Override
     public HashMap<String, HashMap<String, Order>> getOrderByDates() {
         return orderByDates;
     }
 
+    @Override
     public void setOrderByDates(HashMap<String, HashMap<String, Order>> orderByDates) {
         this.orderByDates = orderByDates;
     }
 
+    @Override
     public void setOrderMap(HashMap<String, Order> orderMap) {
         this.orderMap = orderMap;
     }
 
     @Override
     public HashMap<String, Order> addOrder(Order order, String date) {
-        
+
         orderMap = orderByDates.get(date);
         orderMap.put(order.getOrderNumber(), order);
 
@@ -66,7 +68,7 @@ public class OrderDAOFileImpl implements OrderDAO {
         String nextLine = "";
         String[] array = new String[12];
         Scanner sc = new Scanner(new BufferedReader(new FileReader("Orders_" + date + ".txt")));
-        
+
         sc.nextLine();
 
         while (sc.hasNext()) {
@@ -75,7 +77,7 @@ public class OrderDAOFileImpl implements OrderDAO {
             array = nextLine.split(",");
             Order order = new Order();
             order.setOrderNumber(array[0]);
-            name = againdealingwithfuckingcommas(array[1]);
+            name = againdDealingWithCommas(array[1]);
             order.setCustomerName(name);
 
             Tax tx = new Tax();
@@ -129,14 +131,14 @@ public class OrderDAOFileImpl implements OrderDAO {
     @Override
     public void saveOrder(String date) {
         orderMap = orderByDates.get(date);
-        
+
         try {
             PrintWriter out = new PrintWriter(new FileWriter("Orders_" + date + ".txt"));
             out.println("order,customerName,state,taxrate,producttype,"
                     + "area,costperquarefoot,laborcostpersquarefoot,"
                     + "materialcost,laborcost,tax,total");
             for (Order order : orderMap.values()) {
-                String name = dealingwithfuckingcommas(order.getCustomerName());
+                String name = dealingWithCommas(order.getCustomerName());
                 out.println(order.getOrderNumber() + "," + name
                         + "," + order.getTaxes().getState() + "," + order.getTaxes().getTaxRate()
                         + "," + order.getProduct().getProducType() + "," + order.getArea()
@@ -147,13 +149,14 @@ public class OrderDAOFileImpl implements OrderDAO {
                 out.flush();
             }
             out.close();
-            
+
         } catch (IOException ex) {
             Logger.getLogger(OrderDAOFileImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
+    @Override
     public void addDate(String date) {
         try {
             orderByDates.put(date, loadOrder(date));
@@ -164,47 +167,52 @@ public class OrderDAOFileImpl implements OrderDAO {
 
     }
 
+    @Override
     public void removeDate(String date) {
         orderByDates.remove(date);
     }
 
+    @Override
     public ArrayList<String> getdateKeys() {
         ArrayList<String> dateKeys = new ArrayList(orderByDates.keySet());
         return dateKeys;
     }
 
-   
+    @Override
     public Order getOrder(String input) {
         Order order = new Order();
-        for(HashMap<String, Order> orders:orderByDates.values()){
-            for(String key: orders.keySet()){
-                if(input.equals(key)){
+        for (HashMap<String, Order> orders : orderByDates.values()) {
+            for (String key : orders.keySet()) {
+                if (input.equals(key)) {
                     order = orders.get(key);
                 }
             }
         }
-        
-           return order;     
+
+        return order;
     }
-    public String dealingwithfuckingcommas(String fuckingCommas){
+
+    @Override
+    public String dealingWithCommas(String commas) {
         StringBuilder sb = new StringBuilder();
-        for(int i =0; i<fuckingCommas.length(); i++){
-            if(Character.toString(fuckingCommas.charAt(i)).equals(",")){
+        for (int i = 0; i < commas.length(); i++) {
+            if (Character.toString(commas.charAt(i)).equals(",")) {
                 sb.append("~");
-            }else{
-                sb.append(fuckingCommas.charAt(i));
+            } else {
+                sb.append(commas.charAt(i));
             }
         }
         return sb.toString();
     }
-    
-     public String againdealingwithfuckingcommas(String fuckingCommas){
+
+    @Override
+    public String againdDealingWithCommas(String commas) {
         StringBuilder sb = new StringBuilder();
-        for(int i =0; i<fuckingCommas.length(); i++){
-            if(Character.toString(fuckingCommas.charAt(i)).equals("~")){
+        for (int i = 0; i < commas.length(); i++) {
+            if (Character.toString(commas.charAt(i)).equals("~")) {
                 sb.append(",");
-            }else{
-                sb.append(fuckingCommas.charAt(i));
+            } else {
+                sb.append(commas.charAt(i));
             }
         }
         return sb.toString();

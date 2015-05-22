@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.swcguild.floormasteryProejct;
+package com.swcguild.floormasteryproject;
 
+import com.swcguild.floormasteryproject.DAO.OrderDAOFileImpl;
+import com.swcguild.floormasteryproject.DAO.ProductDAOFileImpl;
 import com.swcguild.floormasteryproject.DAO.TaxDAOFileImpl;
 import com.swcguild.floormasteryproject.DTO.Product;
+import com.swcguild.floormasteryproject.Factory.OrderFactory;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,14 +18,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
  * @author apprentice
  */
-public class TaxDAOTest {
-    TaxDAOFileImpl taxT;
-    public TaxDAOTest() {
+public class ProductDAOTest {
+  
+      ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+    ProductDAOFileImpl prod = ctx.getBean("productdao", ProductDAOFileImpl.class);
+    
+    public ProductDAOTest() {
     }
     
     @BeforeClass
@@ -36,7 +43,7 @@ public class TaxDAOTest {
     
     @Before
     public void setUp() {
-        taxT = new TaxDAOFileImpl();
+        prod = new ProductDAOFileImpl();
     }
     
     @After
@@ -50,20 +57,19 @@ public class TaxDAOTest {
     // public void hello() {}
     @Test
     public void testLoad() throws FileNotFoundException{
-        taxT.load();
-        assertEquals(4, taxT.getTaxesMap().size());
-        
+        prod.load();
+        assertEquals(4,prod.getListProduct().size());
     }
-    
     @Test
     public void testGet() throws FileNotFoundException{
-        ArrayList<String> states = new ArrayList<>();
-       taxT.load();
-       states.add("PA");
-       states.add("IN");
-       states.add("OH");
-       states.add("MI");
        
-       assertEquals(states,taxT.getListStates());
+        Product product = new Product();
+        product.setId("1");
+       HashMap<String, Product> prod1 = new HashMap<>();
+       prod1.put("1", product);
+       prod.setProductMap(prod1);
+        assertEquals(product,prod.getProduct("1"));
+        
+        
     }
 }

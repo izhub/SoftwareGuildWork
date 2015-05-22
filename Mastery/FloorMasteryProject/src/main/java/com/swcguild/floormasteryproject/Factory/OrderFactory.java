@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.swcguild.floormasteryproject.factory;
+package com.swcguild.floormasteryproject.Factory;
 
 import com.swcguild.floormasteryproject.DTO.Order;
 import com.swcguild.floormasteryproject.DTO.Product;
