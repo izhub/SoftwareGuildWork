@@ -69,7 +69,7 @@ public class FlooringCalcController {
         double laborCostTotal = laborCostHour + laborCost15Min;
         
         String result = "Total area: " + area + " sqaure foot<br>";
-        result += "Floring cost: $" + String.format("%.2f", flooringCost) + "<br>";
+        result += "Flooring cost: $" + String.format("%.2f", flooringCost) + "<br>";
         result += "Labor Cost: $" + String.format("%.2f", laborCostTotal) + "<br>";
         result += "Total Cost: $" + String.format("%.2f", (flooringCost + laborCostTotal));
         
