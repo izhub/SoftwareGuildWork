@@ -138,7 +138,7 @@ public class HomeControllerNoAjax {
     //Finally, create endpoint to process Edit Dvd Form submimssion
     
     //First we need an edit GET method to HttpServlet and put it in the model
-    // and then great 2nd edit POST method to update that form
+    // and then create 2nd edit POST method to update that form
     
       @RequestMapping(value="/editDvdFormNoAjax", method=RequestMethod.GET)
     public String editContactNoAjax(HttpServletRequest req, Model model){
