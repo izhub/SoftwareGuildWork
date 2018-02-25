@@ -5,6 +5,8 @@
  */
 package com.swcguild.addressbook;
 
+import com.swcguild.addressbook.DAO.AddressBook;
+import com.swcguild.addressbook.DTO.Address;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.junit.After;
@@ -68,19 +70,19 @@ public class AddressBookTest {
     @Test
     public void findAddressTest(){
         Address address = new Address();
-        address.setNameLast("last");
+        address.setLastName("last");
         addBook.addAddress(address);
         assertEquals(address, addBook.findAddressByLastName("last").get(0));
     }
     @Test
     public void saveAddressTest() throws FileNotFoundException, IOException{
        Address address = new Address();
-       address.setNameFirst("first");
-       address.setNameLast("last");
-       address.setAddressStreet(" main street");
-       address.setAddressCity("Akron");
-       address.setAddressState("Ohio");
-       address.setAddressZip("44231");
+       address.setFirstName("first");
+       address.setLastName("last");
+       address.setStreet(" main street");
+       address.setCity("Akron");
+       address.setState("Ohio");
+       address.setZip("44231");
        addBook.addAddress(address);
        AddressBook address2 = new AddressBook();
        addBook.writeBook();

@@ -30,14 +30,15 @@ public class ConsoleIO {
     public LocalDate getLocaldeDate(String date) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-DD");
         String input = "";
+        
         boolean exit;
 
         do {
             try {
             exit = true;
-            System.out.println("date");
+            System.out.println("Enter Date date as YYYY-MM-DD");
             input = sc.nextLine();
-            localDate = LocalDate.parse(input, dtf);
+            LocalDate localDate = LocalDate.parse(input);
             return localDate;
         } catch (Exception e){
             exit = false;

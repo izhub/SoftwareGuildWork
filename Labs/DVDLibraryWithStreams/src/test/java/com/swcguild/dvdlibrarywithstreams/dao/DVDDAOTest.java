@@ -47,7 +47,7 @@ public class DVDDAOTest {
         d1.setDirector("Paul Weitz");
         d1.setRating("R");
         d1.setReleaseDate("1995");
-        d1.setStudio("Univerasl Studio");
+        d1.setStudio("Universal Studio");
 
         d2 = new DVD();
         d2.setTitle("Jumanji");
@@ -165,11 +165,11 @@ public class DVDDAOTest {
 
         dao.addDVD(d2);
         DVD getdvd2 = dao.findDVDById(d2.getId());
-        assertEquals(d2, getdvd);
+        assertEquals(d2, getdvd2);
 
         dao.addDVD(d3);
         DVD getdvd3 = dao.findDVDById(d3.getId());
-        assertEquals(d3, getdvd);
+        assertEquals(d3, getdvd3);
 
     }
 
@@ -177,7 +177,7 @@ public class DVDDAOTest {
     public void searchByTitleTest() {
         dao.addDVD(d1);
         List<DVD> title = dao.searchDVDByTitle("American Pie");
-        assertEquals(d1, title);
+        assertEquals(1, title.size());
     }
 
     @Test
@@ -189,7 +189,7 @@ public class DVDDAOTest {
     public void searchDVDByRatingTest() {
         dao.addDVD(d1);
         List<DVD> rating = dao.searchDVDByRating("R");
-        assertEquals(d1, rating);
+        assertEquals(1, rating.size());
     }
 
     @Test
@@ -203,8 +203,14 @@ public class DVDDAOTest {
     @Test
     public void searchDVDByStudioTest() {
         dao.addDVD(d1);
-        List<DVD> studio = dao.searchDVDByStudio("Univeral Studio");
-        assertEquals(d1, studio);
+        dao.addDVD(d2);
+        dao.addDVD(d3);
+        
+        List<DVD> studio = dao.searchDVDByStudio("Universal Studio");
+        assertEquals(1, studio.size());
+        
+        List<DVD> studio2 = dao.searchDVDByStudio("TriStar");
+        assertEquals(d2.getStudio(), "TriStar");
     }
 
     @Test

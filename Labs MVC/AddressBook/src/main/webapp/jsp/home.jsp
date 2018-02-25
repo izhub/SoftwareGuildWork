@@ -114,6 +114,8 @@
                             </div>
                         </div>
                     </form>
+                    <div id="validationErrors" style="color:red" />
+                    </div>
                 </div>
             </div>
 
@@ -166,7 +168,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!--Edit Modal--> 
             <div class="modal fade" id="editModal" tableindex="-1" role="dialog">
                 <div class="modal-dialog">
@@ -238,8 +240,8 @@
                                 <div class="form-group">
                                     <div class="col-md-offset-4 col-md-8">
                                         <button type="submit" id="edit-button"
-                                            class="btn btn-warning" data-dismiss="modal">
-                                                    Edit Address
+                                                class="btn btn-warning" data-dismiss="modal">
+                                            Edit Address
                                         </button>
                                         <button type="button" class="btn btn-default"
                                                 data-dismiss="modal">Cancel</button>
@@ -249,15 +251,15 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-      <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
-      <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/addressBook.js"></script>
-              
+        <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/addressBook.js"></script>
+
     </body>
 </html>

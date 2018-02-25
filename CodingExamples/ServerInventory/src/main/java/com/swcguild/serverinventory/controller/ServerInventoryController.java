@@ -18,6 +18,9 @@ public class ServerInventoryController {
     ConsoleIO con = new ConsoleIO();
     ServerDAO dao = new ServerDAOInMemImpl();
 
+    public ServerInventoryController (ServerDAOInMemImpl dao){
+        this.dao = dao;
+    }
     public void run() {
 
         int userChoice; 

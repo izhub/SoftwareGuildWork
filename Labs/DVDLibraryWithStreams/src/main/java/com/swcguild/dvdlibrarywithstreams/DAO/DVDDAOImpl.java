@@ -42,7 +42,7 @@ public class DVDDAOImpl implements DVDDAO {
         String line;
         String[] lineTokens;
 
-        while (file.hasNextLine()) {
+        while (file.hasNext()) {
             line = file.nextLine();
             lineTokens = line.split(DELIMITER);
 
@@ -56,7 +56,7 @@ public class DVDDAOImpl implements DVDDAO {
 
             List<String> notes = new ArrayList<>();
             if (lineTokens.length > 6) {
-                String notesToken[] = lineTokens[6].split("~~");
+                String notesToken[] = lineTokens[6].split("\\|");
 
                 for (int i = 0; i < notesToken.length; i++) {
                     notes.add(notesToken[i]);
@@ -64,7 +64,10 @@ public class DVDDAOImpl implements DVDDAO {
             }
             newDVD.setNotes(notes);
             dvdMap.put(newDVD.getId(), newDVD);
-
+            
+            if (Integer.parseInt(lineTokens[0]) > counter){
+                counter = Integer.parseInt(lineTokens[0]);
+            }
         }
         file.close();
     }
@@ -75,7 +78,7 @@ public class DVDDAOImpl implements DVDDAO {
 
         dvdMap.values().stream()
                 .forEach(dv -> {
-                    out.println(dv.getId() + DELIMITER
+                    out.print(dv.getId() + DELIMITER
                             + dv.getTitle() + DELIMITER
                             + dv.getDirector() + DELIMITER
                             + dv.getRating() + DELIMITER
@@ -84,7 +87,7 @@ public class DVDDAOImpl implements DVDDAO {
                     if (dv.getNotes().size() > 0) {
                         out.print(DELIMITER);
                         dv.getNotes().stream()
-                        .forEach(n -> out.print(n + "||"));
+                        .forEach(n -> out.print(n + "|"));
                     }
                     out.println("");
 
@@ -108,7 +111,7 @@ public class DVDDAOImpl implements DVDDAO {
 
     @Override
     public void addDVD(DVD newdvd) {
-        newdvd.setId(counter++);
+        newdvd.setId(++counter);
         dvdMap.put(newdvd.getId(), newdvd);
     }
 

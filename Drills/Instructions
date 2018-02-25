@@ -1,0 +1,31 @@
+JUnit and Drills
+
+1. Look at problem statement and solve the given problem on paper.
+2. Create a new class for the problem
+3. Copy the problem statement (comment that out) and the method definition into your new class
+4. Implement the solution
+5. Create a Test Class for your new code
+6. Implement the test code using the given test cases
+7. Modify your problem solution until all test cases pass
+
+
+Key Concepts for Calling Code from JUnit
+
+1. Create the Test Class from the NetBeans menu.
+2. Make sure you specify the package for your Test Class (it should be in the same package as the
+class you are testing).
+3. Use the built in JUnit ‘assert’ methods to evaluate your test results
+a. assertTrue(...)
+b. assertFalse(...)
+c. assertEquals(...)
+d. assertNull(...)
+
+=============================================
+
+Create package by logic name (drills)
+create class file and solve per 1-7 above
+right click package, New - JUnit test
+:name file same as class file
+:fill in for package same package name
+create unit test
+right click test file- run test or ctrl+F6 to run test

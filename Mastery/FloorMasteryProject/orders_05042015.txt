@@ -1,2 +1,2 @@
-OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
-1,Wise,OH,6.25,Wood,100.00,5.15,4.75,515.00,475.00,61.88,1051.88
+order,customerName,state,taxrate,producttype,area,costperquarefoot,laborcostpersquarefoot,materialcost,laborcost,tax,total
+7,Acme~~~INC~ In.,MI,5.75,Wood,789.0,5.15,4.75,4063.3500000000004,3747.75,449.13825,8260.23825

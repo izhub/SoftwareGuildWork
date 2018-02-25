@@ -44,7 +44,7 @@ public class HashMapWarmUp {
     Set<String> players = playerPoints.keySet();
     
     for (String currentPlayer :players ) {
-        System.out.println("Plane name: " + currentPlayer);
+        System.out.println("Player name: " + currentPlayer);
         Integer currentPoints = playerPoints.get(currentPlayer);
         System.out.println("player Points: " + currentPoints);
     }

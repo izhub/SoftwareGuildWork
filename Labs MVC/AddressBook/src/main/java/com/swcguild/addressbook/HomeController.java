@@ -26,11 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class HomeController {
 
-    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public String displayHomePage() {
-
-        return "home";
-    }
+    
     //reference to dao interface
     private AddressBookDao dao;
 
@@ -41,6 +37,11 @@ public class HomeController {
     }
 
     //AJAX CODING.......................
+    
+    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
+    public String displayHomePage() {
+        return "home";
+    }
     
     @RequestMapping(value = "/address/{id}", method = RequestMethod.GET)
     @ResponseBody

@@ -37,7 +37,7 @@ public class InterestCalc {
         period = sc.nextInt();
 
         System.out.println("Enter # for interval time: "
-                + "\n\t1. Quaterly \n\t2. Monthly \n\t3. Daily");
+                + "\n\t1. Quarterly \n\t2. Monthly \n\t3. Daily");
         feq = sc.nextInt();
 
         if (feq == 1) {
@@ -51,10 +51,10 @@ public class InterestCalc {
         }
         qInt = (aInterest / feq) / 100;
 
-        for (int i = 0; i < period; i++) {
+        for (int i = 1; i <= period; i++) {
             System.out.println("For year: " + i);
 
-            for (int j = 0; j < feq; j++) {
+            for (int j = 1; j <= feq; j++) {
                 System.out.println("Beginning balance: " + cBal);
                 iEarned = cBal * qInt;
                 cBal = cBal + iEarned;

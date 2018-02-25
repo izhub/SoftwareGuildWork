@@ -86,21 +86,29 @@ public class InterestCalculatorController {
         }
         qInt = (aInterest / feq) / 100;
 
-//        Map<Integer, List<Integer>> hash = new HashMap<Integer, List<Integer>>();
-//        
-//        
-//        for (int i = 1; i<= period; i++) {
-//            List<Integer> intervals = new ArrayList<>();
-//
-//            for (int j = 1; j <= feq; j++) {
-//                iEarned = cBal * qInt;
-//                cBal = cBal + iEarned;
-//                
-//                intervals.add(j);
-//                
-//            } hash.put(i, intervals);
+/*       Map<Integer, List<Integer>> hash = new HashMap<Integer, List<Integer>>();
+        
+        
+        for (int i = 1; i<= period; i++) {
+            List<Integer> intervals = new ArrayList<>();
+                 
+         intervals.add(cBal);
+
+        for (int j = 1; j <= feq; j++) {
+                  cBal = cBal
+                iEarned = cBal * qInt;
+                cBal = cBal + iEarned;
+                
+            }
+        
+        intervals.add(iEarned);        
+        intervals.add(cBal);
+        
+//        hash.put(i, intervals);
 //        }
         
+        
+ */
         String results = "";
         
         for (int i = 1; i <= period; i++) {

@@ -42,7 +42,6 @@ public class Step2 {
 
                 System.out.println("Make your selection: \n 1. Rock \n 2. Paper \n 3. Scissor");
                 userPick = sc.nextInt();
-
                 pcPick = 1 + r.nextInt(3);
 
                 System.out.println("Computer choice was: " + pcPick);

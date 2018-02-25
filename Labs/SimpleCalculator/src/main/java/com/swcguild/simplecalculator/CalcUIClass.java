@@ -15,19 +15,20 @@ public class CalcUIClass {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        //    Scanner sc = new Scanner(System.in);
         SimpleCalculator calc = new SimpleCalculator();
-        System.out.println("This is a simple numerical calculator.");
-        System.out.println("Choose which operation you would like to compute.");
+        ConsoleIOClass con = new ConsoleIOClass();
+
+        con.String("This is a simple numerical calculator.");
+
+        con.String("Choose which operation you would like to compute.");
         String calcAgain;
         do {
-            System.out.println("(1)Addition, (2)Subtraction, (3)Multiplication, (4)Division");
-            int choice = sc.nextInt();
-            System.out.print("Select the first integer: ");
-            int num1 = sc.nextInt();
-            System.out.println("");
-            System.out.print("Select the second integer: ");
-            int num2 = sc.nextInt();
+
+            int choice = con.getInt("(1)Addition, (2)Subtraction, (3)Multiplication, (4)Division");
+            int num1 = con.getInt("Select the first integer: ");
+            int num2 = con.getInt("Select the second integer: ");
+
             int result = 0;
 
             switch (choice) {
@@ -47,9 +48,8 @@ public class CalcUIClass {
                     break;
 
             }
-            System.out.println("Your result is: " + result);
-            System.out.println("Would you like to use the calculator again? 'yes' or 'no'");
-            calcAgain = sc.next();
+            con.String("Your result is: " + result);
+            calcAgain = con.getString("Would you like to use the calculator again? 'yes' or 'no'");
 
         } while (calcAgain.equalsIgnoreCase("yes"));
 

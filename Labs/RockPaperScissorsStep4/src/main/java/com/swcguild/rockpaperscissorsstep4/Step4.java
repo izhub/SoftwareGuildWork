@@ -12,6 +12,24 @@ import java.util.Scanner;
  *
  * @author apprentice
  */
+/*
+ Lab: Refactor RPS
+ Refactor your final version of Rock, Paper, Scissors to use methods for better code
+ organization. Follow the process below:
+
+ Plan your methods (check in with instructor after all methods have been planned):
+ ○ How many?
+ ○ Where will they be used?
+ ○ Return types?
+ ○ Parameters?
+ ○ Names?
+ Flowchart each method (check in with instructor after all methods have been
+ flowcharted):
+ ○ What is the internal logic?
+ ○ What are the error conditions?
+ Implement and test (check in with instructor after all methods have been implemented
+ and tested)
+ */
 public class Step4 {
 
     public static void main(String[] args) {
@@ -43,42 +61,18 @@ public class Step4 {
                 pcPick = 1 + r.nextInt(3);
 
                 System.out.println("Computer choice was: " + pcPick);
-                
+
                 System.out.println(CheckWinner(userPick, pcPick));
-                
-                 if (CheckWinner(userPick,pcPick).equalsIgnoreCase("Computer win!"))
-                 { pcWin++;
-                 } else if (CheckWinner(userPick, pcPick).equalsIgnoreCase("It's a tie.")) {
-                     ties++;
-                 } else { uWin++;
-                     
-                 }
-                
-                /*  Lab: Refactor RPS
-                
-                 if (userPick == pcPick) {
-                 System.out.println("It's a tie.");
-                 ties++;
-                 } else if (userPick == 1 && pcPick == 2) {
-                 System.out.println("Computer win!.");
-                 pcWin++;
-                 } else if (userPick == 1 && pcPick == 3) {
-                 System.out.println("You win. ");
-                 uWin++;
-                 } else if (userPick == 2 && pcPick == 1) {
-                 System.out.println("You win!");
-                 uWin++;
-                 } else if (userPick == 2 && pcPick == 3) {
-                 System.out.println("Computer wins.");
-                 pcWin++;
-                 } else if (userPick == 3 && pcPick == 1) {
-                 System.out.println("Computer wins.");
-                 pcWin++;
-                 } else if (userPick == 3 && pcPick == 2) {
-                 System.out.println("You win!");
-                 uWin++;
-                 }
-                 */
+
+                if (CheckWinner(userPick, pcPick).equalsIgnoreCase("Computer win!")) {
+                    pcWin++;
+                } else if (CheckWinner(userPick, pcPick).equalsIgnoreCase("It's a tie.")) {
+                    ties++;
+                } else {
+                    uWin++;
+
+                }
+
             }
             System.out.println("=============================");
             System.out.println("Number of game ties: " + ties);
@@ -132,21 +126,3 @@ public class Step4 {
     }
 
 }
-/*
- Lab: Refactor RPS
- Refactor your final version of Rock, Paper, Scissors to use methods for better code
- organization. Follow the process below:
-
- Plan your methods (check in with instructor after all methods have been planned):
- ○ How many?
- ○ Where will they be used?
- ○ Return types?
- ○ Parameters?
- ○ Names?
- Flowchart each method (check in with instructor after all methods have been
- flowcharted):
- ○ What is the internal logic?
- ○ What are the error conditions?
- Implement and test (check in with instructor after all methods have been implemented
- and tested)
- */

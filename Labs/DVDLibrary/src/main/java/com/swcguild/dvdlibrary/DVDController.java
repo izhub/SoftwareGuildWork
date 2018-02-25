@@ -110,6 +110,9 @@ public class DVDController {
         String edit = con.getString("\nEnter Title of DVD to edit: ").toUpperCase();
         boolean run = false;
 
+    // dvdCon.dvd is a bad form, dvd hash should be private and put values into
+    // container here and then access it
+        
         for (DVD entry : dvdCon.dvd.values()) {
             if (edit.equalsIgnoreCase(entry.getTitle())) {
                 con.getString("DVD #:" + entry.getCounter());
@@ -163,69 +166,6 @@ public class DVDController {
             dvdCon.dvd.put(count, currentDVD);
 
         }
-////        
-//         if (!input.equals("")) {
-//            order.setCustomerName(input);
-//        }
-//         HashMap<Integer, DVD> results = dvdCon.searchByTitle(title);
-//        String Collection<DVD > collectionResults;
-//        if (results.isEmpty()) {
-//            con.String("Not found...");
-//        } else {
-//            collectionResults = results.values();
-//            for (DVD result : collectionResults) {
-//                con.String("\n#" + result.getCounter()
-//                        + "\nTite:" + result.getTitle()
-//                        + "\nDirector: " + result.getDirector()
-//                        + "\nRating: " + result.getRating()
-//                        + "\nRelease Date: " + result.getReleaseDate()
-//                        + "\nStudio: " + result.getStudio()
-//                        + "\nMy rating: " + result.getUserRating()
-//                        + "\nMy Notes:" + result.getUserNotes());
-//            }
-//            String key = con.getString(("\nEnter movie number to edit:"));
-//
-//            con.String("1 " + results.get(key).getTitle());
-//            con.String("2 " + results.get(key).getDirector());
-//            con.String("3 " + results.get(key).getRating());
-//            con.String("4 " + results.get(key).getReleaseDate());
-//            con.String("5 " + results.get(key).getStudio());
-//            con.String("6 " + results.get(key).getUserRating());
-//            con.String("7 " + results.get(key).getUserNotes());
-//
-//            String lineNumber = con.getString("\nEnter line number to edit:");
-//            String revisedLine = con.getString("\nEnter new information: ");
-//
-//            switch (lineNumber) {
-//                case "1":
-//                    results.get(key).setTitle(revisedLine);
-//                    break;
-//                case "2":
-//                    results.get(key).setDirector(revisedLine);
-//                    ;
-//                    break;
-//                case "3":
-//                    results.get(key).setRatinsetRatingLine
-//                    );
-//                    break;
-//                case "4":
-//                    results.get(key).setReleaseDate(revisedLine);
-//                    break;
-//                case "5":
-//                    results.get(key).setStudio(revisedLine);
-//                    break;
-//                case "6":
-//                    results.get(key).setUserRating(revisedLine);
-//                    break;
-//                case "7":
-//                    results.get(key).setUserNotes(revisedLine);
-//                    break;
-//                default:
-//                    con.String("Invalid selection");
-//                    break;
-//            }
-//            dvdCon.editDVD(results.get(key));
-//        }
     }
 
     public void listDVD() {

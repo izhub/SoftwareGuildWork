@@ -32,6 +32,7 @@ public class DVDLibraryController {
         try {
             dao.loadDVD();
         } catch (FileNotFoundException e) {
+            
         }
 
         do {
@@ -112,7 +113,7 @@ public class DVDLibraryController {
         con.String("10. Search DVD By Studio");
         con.String("11. List Newest DVD");
         con.String("12. List Oldest DVD");
-        con.String("13. Average Age of Moviese");
+        con.String("13. Average Age of Movies");
         con.String("14. Average Number of Notes");
         con.String("15. Exit");
         con.String("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -159,7 +160,7 @@ public class DVDLibraryController {
 
             dao.addDVD(mydvd);
 
-            String add1More = con.getString("Wish to add more? Y/N");
+            String add1More = con.getString("Wish to add more DVDs? Y/N");
             if (add1More.equalsIgnoreCase("Y")) {
                 addMoreDVD = true;
             }
@@ -195,6 +196,7 @@ public class DVDLibraryController {
         if (dvdTitle.size() > 0) {
 
             for (DVD results : dvdTitle) {
+                con.String("\tID:"+ results.getId());
                 con.String("\tTitle: " + results.getTitle());
                 con.String("\tRelease Date: " + results.getReleaseDate());
                 con.String("\tDirector: " + results.getDirector());
@@ -205,14 +207,17 @@ public class DVDLibraryController {
                     con.String("Notes:");
 
                     for (String notes : results.getNotes()) {
-                        con.String("\t\t" + notes);
+                        con.String("\t" + notes + "\n");
                     }
                 }
             }
 
             // ask for DVD ID to edit    
             int editNum = con.getInt("Enter ID to edit DVD: ");
-
+            if (editNum > dvdTitle.size()){
+                con.String("Invalid");
+                return;
+            }
             DVD editThis = dao.findDVDById(editNum);
 
             // check if it matches
@@ -221,7 +226,8 @@ public class DVDLibraryController {
 
                 // edit information
                 con.String("Enter new information or enter to keep");
-
+                con.getString((""));
+                
                 String newTitle = con.getString("Enter new Title: "
                         + editThis.getTitle());
                 editThis.setTitle(newTitle);
@@ -236,6 +242,7 @@ public class DVDLibraryController {
 
                 String newRating = con.getString("Enter new MPAA Rating: "
                         + editThis.getRating());
+                editThis.setReleaseDate(newRating);
 
                 String newStudio = con.getString("Enter new Studio : "
                         + editThis.getStudio());
@@ -290,7 +297,7 @@ public class DVDLibraryController {
     }// done
 
     private void countDVD() {
-        dao.countDVD();
+        con.String("Total: " +dao.countDVD());
     }//done
 
     private void listAllDVD() {
@@ -357,6 +364,7 @@ public class DVDLibraryController {
                  // how to lambda string? 
                  */
                 for (DVD results : dvdTitle) {
+                    con.String("\tID:"+ results.getId());
                     con.String("\tTitle: " + results.getTitle());
                     con.String("\tRelease Date: " + results.getReleaseDate());
                     con.String("\tDirector: " + results.getDirector());
@@ -367,7 +375,7 @@ public class DVDLibraryController {
                         con.String("Notes:");
 
                         for (String notes : results.getNotes()) {
-                            con.String("\t\t" + notes);
+                            con.String("\t" + notes);
                         }
                     }
                 }
@@ -376,7 +384,7 @@ public class DVDLibraryController {
                 con.String("NOT FOUND");
             }
 
-            String searchMore = con.getString("Search more? Y/N");
+            String searchMore = con.getString("Search more DVDs? Y/N");
 
             if (searchMore.equalsIgnoreCase("Y")) {
                 byTitle = true;
@@ -403,7 +411,8 @@ public class DVDLibraryController {
             if (years.size() > 0) {
 
                 for (DVD results : years) {
-                    con.String("\tTitle: " + results.getTitle());
+                   con.String("\tID:"+ results.getId());
+                   con.String("\tTitle: " + results.getTitle());
                     con.String("\tRelease Date: " + results.getReleaseDate());
                     con.String("\tDirector: " + results.getDirector());
                     con.String("\tMPAA Rating: " + results.getRating());
@@ -413,7 +422,7 @@ public class DVDLibraryController {
                         con.String("Notes:");
 
                         for (String notes : results.getNotes()) {
-                            con.String("\t\t" + notes);
+                            con.String("\t" + notes);
                         }
                     }
                 }
@@ -446,7 +455,8 @@ public class DVDLibraryController {
             if (rate.size() > 0) {
 
                 for (DVD results : rate) {
-                    con.String("\tTitle: " + results.getTitle());
+                  con.String("\tID:"+ results.getId());
+                  con.String("\tTitle: " + results.getTitle());
                     con.String("\tRelease Date: " + results.getReleaseDate());
                     con.String("\tDirector: " + results.getDirector());
                     con.String("\tMPAA Rating: " + results.getRating());
@@ -455,7 +465,7 @@ public class DVDLibraryController {
                     if (results.getNotes().size() > 0) {
                         con.String("Notes: ");
                         for (String notes : results.getNotes()) {
-                            con.String("\t\t" + notes);
+                            con.String("\t" + notes);
                         }
                     }
                     con.String("");
@@ -489,6 +499,7 @@ public class DVDLibraryController {
 
             for (List<DVD> dvds : groupByRating) {
                 for (DVD results : dvds) {
+                    con.String("\tID:"+ results.getId());
                     con.String("\tTitle: " + results.getTitle());
                     con.String("\tRelease Date: " + results.getReleaseDate());
                     con.String("\tDirector: " + results.getDirector());
@@ -498,7 +509,7 @@ public class DVDLibraryController {
                     if (results.getNotes().size() > 0) {
                         con.String("NOTES:");
                         for (String notes : results.getNotes()) {
-                            con.String("\t\t" + notes);
+                            con.String("\t" + notes);
                         }
 
                     }
@@ -524,7 +535,8 @@ public class DVDLibraryController {
             if (byStudio.size() > 0) {
 
                 for (DVD results : byStudio) {
-                    con.String("\tTitle: " + results.getTitle());
+                   con.String("\tID:"+ results.getId());
+                   con.String("\tTitle: " + results.getTitle());
                     con.String("\tRelease Date: " + results.getReleaseDate());
                     con.String("\tDirector: " + results.getDirector());
                     con.String("\tMPAA Rating: " + results.getRating());
@@ -534,7 +546,7 @@ public class DVDLibraryController {
                         con.String("\tNOTES: ");
 
                         for (String notes : results.getNotes()) {
-                            con.String("\t\t" + notes);
+                            con.String("\t" + notes);
                         }
 
                     }
@@ -567,7 +579,8 @@ public class DVDLibraryController {
         if (newest.size() > 0) {
 
             for (DVD results : newest) {
-                con.String("\tTitle: " + results.getTitle());
+               con.String("\tID:"+ results.getId());
+               con.String("\tTitle: " + results.getTitle());
                 con.String("\tRelease Date: " + results.getReleaseDate());
                 con.String("\tDirector: " + results.getDirector());
                 con.String("\tMPAA Rating: " + results.getRating());
@@ -576,7 +589,7 @@ public class DVDLibraryController {
                 if (results.getNotes().size() > 0) {
                     con.String("\tNOTES: ");
                     for (String note : results.getNotes()) {
-                        con.String("\t\t" + note);
+                        con.String("\t" + note);
                     }
                 }
             }
@@ -595,7 +608,8 @@ public class DVDLibraryController {
         if (oldest.size() > 0) {
 
             for (DVD results : oldest) {
-                con.String("\tTitle: " + results.getTitle());
+               con.String("\tID:"+ results.getId());
+               con.String("\tTitle: " + results.getTitle());
                 con.String("\tRelease Date: " + results.getReleaseDate());
                 con.String("\tDirector: " + results.getDirector());
                 con.String("\tMPAA Rating: " + results.getRating());
@@ -604,7 +618,7 @@ public class DVDLibraryController {
                 if (results.getNotes().size() > 0) {
                     con.String("\tNOTES: ");
                     for (String notes : results.getNotes()) {
-                        con.String("\t\t" + notes);
+                        con.String("\t" + notes);
                     }
                 }
                 con.String("");

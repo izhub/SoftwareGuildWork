@@ -7,6 +7,7 @@ package com.swcguild.addressbook;
  */
 
 import com.swcguild.addressbook.dao.AddressBookDao;
+import com.swcguild.addressbook.dao.AddressBookDaoInterface;
 import com.swcguild.addressbook.dao.SearchTerm;
 import com.swcguild.addressbook.dto.Address;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
@@ -27,7 +29,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class AddressBookDaoTests {
     
-    private AddressBookDao dao;
+    private AddressBookDaoInterface dao;
     Address a1;
     Address a2;
     Address a3;
@@ -48,7 +50,10 @@ public class AddressBookDaoTests {
     public void setUp() {
     ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
     
-    dao = ctx.getBean("AddressBookDaoInterface", AddressBookDao.class);
+    JdbcTemplate cleaner = ctx.getBean("jdbcTemplate", JdbcTemplate.class);
+    cleaner.execute("delete from addresses");
+    
+    dao = ctx.getBean("addressBookDaoInterface", AddressBookDaoInterface.class);
     
     a1 = new Address();
     a1.setFirstName("John");

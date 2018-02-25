@@ -10,3 +10,69 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/PBD/Basic Printing/BandP/target/
+/PBD/Variables/Variables/target/
+/WarmUps/target/
+/CodingExamples/ConditionalExamples/target/
+/CodingExamples/LoopExamples/target/
+/Labs/LuckySeven/target/
+/PBD/ifStatements/target/
+/CodingExamples/WindowMasterDebugger/target/
+/CodingExamples/MethodExamples/target/
+/Labs/Factorizor/target/
+/Labs/RockPaperScissorsStep1/target/
+/Labs/RockPaperScissorsStep2/target/
+/Labs/RockPaperScissorsStep4/target/
+/PBD/RandomNumbers/target/
+/PBD/WhileLoops/target/
+/CodingExamples/ArrayExamples/target/
+/PBD/Arrays/target/
+/CodingExamples/SimpleFileIO/target/
+/Labs/InterestCalculator/target/
+/PBD/IfStatements2/target/
+/PBD/Functions/target/
+/UnitOneSkillCheck/target/
+/DogExample/target/
+/GuessMyAge/target/
+/CodingExamples/JUnitExample/target/
+/Labs/SimpleCalculator/target/
+/CodingExamples/ArrayListHashMappingExample/target/
+/StateCapitals/target/
+/Labs/StateCapitals2/target/
+/CodingExamples/ClassRosterLiveCode/target/
+/Drills/LogicDrills/target/
+/Drills/DrillsStrings/target/
+/ConsoleIO/target/
+/Labs/AddressBook/target/
+/WarmUps/HashMapWarmUp/target/
+/Labs/StudentQuizGrade/target/
+/CodingExamples/InheritanceExample/target/
+/WarmUps/WarmUpIteration/target/
+/Mastery/FloorMasteryProject/target/
+/Labs/DVDLibrary/target/
+/PBD/FileInputAndOutput/target/
+/CodingExamples/ServerInventory/target/
+/Labs/AddressBookWithStreams/target/
+/CodingExamples/LambdaExample/target/
+/CodingExamples/DataStructures/target/
+/Labs/DVDLibraryWithStreams/target/
+/CodingExamples/Olympian/target/
+/Labs/DVDLibraryV3/target/
+/RSVP/target/
+/Lucky7Servlet/target/
+/mavenproject1/SimpleContactListMVC/target/
+/SpringLucky7/target/
+/Lucky7/target/
+/Factorizor/target/
+/InterestCalculator/target/
+/TipCalculator/target/
+/FlooringCalc/target/
+/Labs MVC/SiteLab/target/
+/Labs MVC/UnitConverter/target/
+/CodingExamples/ContactList/target/
+/Labs MVC/DVDLibraryNoAjax/target/
+/Labs MVC/AddressBook/target/
+/PBD/NestedClasses/target/
+/PBD/ArrayLists/target/
+/Labs MVC/BlogCapstoneProject/target/
+/PBD/Others/target/

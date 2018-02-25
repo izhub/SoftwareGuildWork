@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -38,7 +40,10 @@ public class ServerDAOAddGetTest {
     
     @Before
     public void setUp() {
-       dao = new ServerDAOInMemImpl();
+//       dao = new ServerDAOInMemImpl();
+        
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        dao = ctx.getBean("dao", ServerDAOInMemImpl.class);
         
         s1 = new Server();
         s1.setName("TEST SERVER");

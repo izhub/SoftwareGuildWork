@@ -5,6 +5,8 @@
  */
 package com.swcguild.dvdlibrary;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,7 +19,11 @@ import static org.junit.Assert.*;
  * @author apprentice
  */
 public class DVDLibraryTest {
-    DVD dvd;
+    DVD dao;
+     DVD d1;
+    DVD d2;
+    DVD d3;
+    
     public DVDLibraryTest() {
     }
     
@@ -31,7 +37,26 @@ public class DVDLibraryTest {
     
     @Before
     public void setUp() {
-        dvd = new DVD();
+        dao = new DVD();
+        
+        d1 = new DVD();
+        d1.setTitle("American Pie");
+        d1.setDirector("Paul Weitz");
+        d1.setRating("R");
+        d1.setStudio("Univerasl Studio");
+        
+        d2 = new DVD();
+        d2.setTitle("Jumanji");
+        d2.setDirector("Joe Jonston");
+        d2.setRating("PG");
+        d2.setStudio("TriStar");
+
+        
+        d3 = new DVD();
+        d3.setTitle("The Shawshank Redemption");
+        d3.setDirector("Frank Darabont");
+        d3.setRating("R");
+        d3.setStudio("Columbia Pictures");
     }
     
     @After
@@ -45,8 +70,10 @@ public class DVDLibraryTest {
     // public void hello() {}
     @Test
     public void TestIsEmpty(){
-        assertEquals(0,dvd.getCounter());
+        assertEquals(0,dao.getCounter());
+        
+        
     }
-    @Test
+    
     
 }

@@ -164,42 +164,45 @@ public class AddressDAOAddGetRemoveTest {
     public void searchByLastNameTest() {
         dao.addAddress(a2);
         List<Address> name = dao.searchByLastName("Steven");
-        assertEquals("Stevens", name);
+        assertEquals(a2.getLastName(), "Stevens");
 
         dao.addAddress(a1);
         List<Address> name1 = dao.searchByLastName("Evans");
-        assertEquals("Evans", name1);
+        assertEquals(1, name1.size());
 
         dao.addAddress(a3);
         List<Address> name2 = dao.searchByLastName("Matu");
-        assertEquals("Matu", name2);
+        assertEquals(1, name2.size());
     }
 
     @Test
     public void searchByCityTest() {
         dao.addAddress(a1);
         List<Address> city = dao.searchByCity("Akron");
-        assertEquals("Akron", city);
+        assertEquals(a1.getCity(), "Akron");
 
         dao.addAddress(a2);
         List<Address> city1 = dao.searchByCity("Austin");
-        assertEquals("Austin", city1);
+        assertEquals(1, city1.size());
 
         dao.addAddress(a3);
         List<Address> city2 = dao.searchByCity("Hudson");
-        assertEquals("Hudson", city2);
+        assertEquals("Hudson", a3.getCity());
+        
+
     }
 
     @Test
     public void searchByStateSortByCityTest() {
 
         dao.addAddress(a1);
+        dao.addAddress(a2);
+        dao.addAddress(a3);
         Map<String, List<Address>> state = dao.searchByStateSortByCity("OH");
+        assertEquals(2, state.size());
 
-        assertEquals("OH", state);
-
-        Map<String, List<Address>> state1 = dao.searchByStateSortByCity("Tx");
-        assertEquals("TX", state1);
+        Map<String, List<Address>> state1 = dao.searchByStateSortByCity("TX");
+        assertEquals("TX", a2.getState());
         /*
         
          a2.setState(a1.getState());
@@ -215,25 +218,11 @@ public class AddressDAOAddGetRemoveTest {
     public void searchByZipTest() {
         dao.addAddress(a1);
         List<Address> zip = dao.searchByZip("44311");
-        assertEquals("44311", zip);
+        assertEquals(1, zip.size());
 
         dao.addAddress(a3);
-        List<Address> zip1 = dao.searchByZip("78660");
-        assertEquals("78660", zip1);
+        List<Address> zip1 = dao.searchByZip("44236");
+        assertEquals(zip1.get(0), a3);
 
     }
 }
-/*
-   a2.setZipCode(a1.getZipCode());
-        a3.setZipCode("notLast");
-        dao.addAddress(a1);
-        dao.addAddress(a2);
-        dao.addAddress(a3);
-        List<Address> list = new ArrayList<>();
-        
-        list.add(a1);
-        list.add(a2);
-        
-        assertEquals(list,dao.searchZipCode(a1.getZipCode()));
-    }    
-*/

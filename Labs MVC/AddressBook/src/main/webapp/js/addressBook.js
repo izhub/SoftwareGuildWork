@@ -28,34 +28,41 @@ $(document).ready(function () {
                     $('#add-state').val(''),
                     $('#add-zip').val(''),
                     loadAddresses();
-        });
-    });
-
-    $('#edit-button').click(function(event){
-        event.preventDefault();
-        
-        $.ajax({
-            type: 'PUT',
-            url: 'address/'+ $('#edit-address-id').text(),
-            data: JSON.stringify({
-                id: $('#edit-address-id').val(),
-                firstName: $('#edit-first-name').val(),
-                lastName: $('#edit-last-name').val(),
-                street: $('#edit-street').val(),
-                city: $('#edit-city').val(),
-                state: $('#edit-state').val(),
-                zip: $('#edit-zip').val()
-            }),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            'dataType': 'json'
-        }).success(function(){
-            loadAddresses();
+            $('#validationErrors').empty();
+        }).error(function (data, status) {
+            $.each(data.responseJSON.fieldErrors, function (index, validationError) {
+                var errorDiv = $('#validationErrors');
+                errorDiv.append(validationError.message).append($('<br>'));
+            });
         });
     });
 });
+
+$('#edit-button').click(function (event) {
+    event.preventDefault();
+
+    $.ajax({
+    type: 'PUT',
+            url: 'address/' + $('#edit-address-id').text(),
+            data: JSON.stringify({
+            id: $('#edit-address-id').val(),
+                    firstName: $('#edit-first-name').val(),
+                    lastName: $('#edit-last-name').val(),
+                    street: $('#edit-street').val(),
+                    city: $('#edit-city').val(),
+                    state: $('#edit-state').val(),
+                    zip: $('#edit-zip').val()
+            }),
+            headers: {
+            'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+            },
+            'dataType': 'json'
+    }).success(function () {
+        loadAddresses();
+    });
+    });
+
 
 function clearAddressTable() {
     $('#contentRows').empty();
@@ -101,15 +108,15 @@ function loadAddresses() {
     });
 }
 
-$('#detailsModal').on('show.bs.modal',function(event){
+$('#detailsModal').on('show.bs.modal', function (event) {
     var element = $(event.relatedTarget);
     var addressId = element.data('address-id');
     var modal = $(this);
-    
+
     $.ajax({
-        type:'GET',
+        type: 'GET',
         url: 'address/' + addressId
-    }).success(function(address){
+    }).success(function (address) {
         modal.find('#address-id').text(address.id);
         modal.find('#address-firstName').text(address.firstName);
         modal.find('#address-lastName').text(address.lastName);
@@ -119,15 +126,15 @@ $('#detailsModal').on('show.bs.modal',function(event){
     });
 });
 
-$('#editModal').on('show.bs.modal', function(event){
+$('#editModal').on('show.bs.modal', function (event) {
     var element = $(event.relatedTarget);
     var addressId = element.data('address-id');
-    var modal=$(this);
-    
+    var modal = $(this);
+
     $.ajax({
         type: 'GET',
-        url: 'address/'+addressId
-    }).success(function(address){
+        url: 'address/' + addressId
+    }).success(function (address) {
         modal.find('#edit-address-id').text(address.id);
         modal.find('#edit-address-id').val(address.id);
         modal.find('#edit-first-name').val(address.firstName);
@@ -137,17 +144,17 @@ $('#editModal').on('show.bs.modal', function(event){
         modal.find('#edit-state').val(address.state);
         modal.find('#edit-zip').val(address.zip);
     });
-    
+
 });
 
-function deleteAddress(id){
+function deleteAddress(id) {
     var answer = confirm("Are you sure you want delete this entery?");
-    
-    if (answer === true){
+
+    if (answer === true) {
         $.ajax({
             type: 'DELETE',
             url: 'address/' + id
-        }).success(function(){
+        }).success(function () {
             loadAddresses();
         });
     }

@@ -13,16 +13,19 @@ public class counter {
     public static void main(String[] args) {
         
         toTen();
-        toN(3);             // try to reconcile the error if time permits
-        toN(8);             // thinking of how to make non-static code work in static method
+        System.out.println();
+        toN(3); 
+        System.out.println();
+        toN(8);  
+        System.out.println();
         toN(200);
     }
    public static void toTen() {
        for (int i=1; i <= 10; i++)
            System.out.println(i);
    }
-   public void toN(int a) {
-       for (int i = 0; i <= a; i++)
+   public static void toN(int n) {
+       for (int i = 0; i <= n; i++)
            System.out.println(i);
    } 
 }
