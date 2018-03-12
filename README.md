@@ -1,3 +1,3 @@
 # ZahidIqbal
 
-Projects completed during my apprenticeship at the Software Craftsmanship Guild in Akron, OH in the cohort of April - June 2015. 
+This repository contains work completed during the April 2015 Java Cohort at the <a href="http://www.swcguild.com/">Software Craftsmanship Guild</a>
